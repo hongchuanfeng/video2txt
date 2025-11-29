@@ -240,10 +240,12 @@ export function buildSegmentsFromResults(results: SmartSubtitlesResult[]): {
 
     if (result.PureSubtitleTransTask?.Output?.SubtitleResults?.length) {
       for (const item of result.PureSubtitleTransTask.Output.SubtitleResults) {
+        // Use Path property if SubtitlePath doesn't exist
+        const subtitlePath = (item as any).SubtitlePath || (item as any).Path;
         files.push({
           type: 'translation',
-          path: item.SubtitlePath,
-          subtitlePath: item.SubtitlePath
+          path: subtitlePath,
+          subtitlePath: subtitlePath
         });
       }
     }
