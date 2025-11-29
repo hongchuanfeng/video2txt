@@ -1,0 +1,85 @@
+creem 支付成功回调说明：
+
+https://xxx/zh?checkout_id=ch_3d1ljVeP5qh03wrVNcTIfJ&order_id=ord_5xdskrxY8aEYMtRroJvZf8&customer_id=
+cust_7iL6J3cGO2SpiUEia1oL9F&subscription_id=sub_4HIE6Lko7pI3eC5WQc1zQa&
+product_id=prod_4L6YdpnlJEdRjzPg9OjH8Z&signature=9b89165671453dd9d88de082535b348d1dfc1780a28f910230eef1f54ef5aed4
+
+
+上面的是回调的地址的参数，对signature字段用如下处理：
+
+import * as crypto from 'crypto';
+
+  generateSignature(payload: string, secret: string): string {
+    const computedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(payload)
+      .digest('hex');
+    return computedSignature;
+  }
+
+
+  处理后的payload是：
+  {
+  "id": "evt_21mO1jWmU2QHe7u2oFV7y1",
+  "eventType": "subscription.paid",
+  "created_at": 1728734327355,
+  "object": {
+    "id": "sub_6pC2lNB6joCRQIZ1aMrTpi",
+    "object": "subscription",
+    "product": {
+      "id": "prod_d1AY2Sadk9YAvLI0pj97f",
+      "name": "Monthly",
+      "description": "Monthly",
+      "image_url": null,
+      "price": 1000,
+      "currency": "EUR",
+      "billing_type": "recurring",
+      "billing_period": "every-month",
+      "status": "active",
+      "tax_mode": "exclusive",
+      "tax_category": "saas",
+      "default_success_url": "",
+      "created_at": "2024-10-11T11:50:00.182Z",
+      "updated_at": "2024-10-11T11:50:00.182Z",
+      "mode": "local"
+    },
+    "customer": {
+      "id": "cust_1OcIK1GEuVvXZwD19tjq2z",
+      "object": "customer",
+      "email": "text@example.com",
+      "name": "Tester Test",
+      "country": "NL",
+      "created_at": "2024-10-11T09:16:48.557Z",
+      "updated_at": "2024-10-11T09:16:48.557Z",
+      "mode": "local"
+    },
+    "collection_method": "charge_automatically",
+    "status": "active",
+    "last_transaction_id": "tran_5yMaWzAl3jxuGJMCOrYWwk",
+    "last_transaction_date": "2024-10-12T11:58:47.109Z",
+    "next_transaction_date": "2024-11-12T11:58:38.000Z",
+    "current_period_start_date": "2024-10-12T11:58:38.000Z",
+    "current_period_end_date": "2024-11-12T11:58:38.000Z",
+    "canceled_at": null,
+    "created_at": "2024-10-12T11:58:45.425Z",
+    "updated_at": "2024-10-12T11:58:45.425Z",
+    "metadata": {
+      "custom_data": "mycustom data",
+      "internal_customer_id": "internal_customer_id"
+    },
+    "mode": "local"
+  }
+}
+
+
+secret :whsec_tsf4I58EXUxebny8SvoBv
+
+
+根据上面的资料获取回调参数，然后把数据添加到supabase数据库中，表名是subscription_orders，
+
+
+回调URL：https://video2txt.zorezoro.com/api/creem/webhook
+
+
+
+

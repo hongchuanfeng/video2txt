@@ -1,0 +1,9 @@
+
+2、接口文档
+
+
+https://cnb.cool/tencent/cloud/api/sdk/tencentcloud-sdk-nodejs/-/blob/master/src/services/mps/v20190612/mps_client.ts
+
+
+3、实现智能字幕接口调用，将视频中的字幕转为字幕文件。
+

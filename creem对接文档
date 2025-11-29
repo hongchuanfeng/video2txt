@@ -1,0 +1,22 @@
+Basic版本，10美元/月，30个积分，product_id=prod_N6rm4KG1ZeGvfnNOIzkjt
+Standard版本，30美元/月，100个积分，product_id=prod_3CQsZ5gNb1Nhkl9a3Yxhs2
+Premium版本，100美元/月，350个积分，product_id=prod_5h3JThYd4iw4SIDm6L5sCO
+
+测试产品product_id: prod_1l9cjsowPhSJlsfrTTXlKb
+
+CREEM_API_KEY=creem_4QGhR5aZTjFxJELOoLmQa6
+APP_BASE_URL=http://localhost:3000
+
+
+https://api.creem.io/v1/checkouts  这个链接设置可以配置的。
+
+
+const redirectUrl = await axios.post(
+      `https://api.creem.io/v1/checkouts`,
+        {
+          product_id: 'xxxx',
+        },
+        {
+          headers: { "x-api-key": `CREEM_API_KEY` },
+        },
+    );
