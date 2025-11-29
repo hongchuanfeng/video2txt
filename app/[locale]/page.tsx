@@ -9,6 +9,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { getVideoDurationFromElement } from '@/lib/videoUtils';
 import { SUBSCRIPTION_PLANS } from '@/lib/subscription';
 
+export const dynamic = 'force-dynamic';
+
 type TencentSubtitleApiResponse = {
   taskId: string;
   segmentCount: number;

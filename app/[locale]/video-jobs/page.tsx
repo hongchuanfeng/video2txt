@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 type VideoSubtitleJob = {
   id: string;
   user_id: string;

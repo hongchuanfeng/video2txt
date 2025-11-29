@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { supabase } from '@/lib/supabaseClient';
 
+export const dynamic = 'force-dynamic';
+
 export default function LoginPage() {
   const t = useTranslations('auth');
   const locale = useLocale();

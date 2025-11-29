@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 export default function ContactPage() {
   const t = useTranslations('contact');
   const [formData, setFormData] = useState({

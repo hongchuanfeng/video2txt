@@ -5,6 +5,8 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { parseSRT, convertToText } from '@/lib/srtParser';
 
+export const dynamic = 'force-dynamic';
+
 export default function SRTToTextPage() {
   const t = useTranslations('srtToText');
   const [file, setFile] = useState<File | null>(null);

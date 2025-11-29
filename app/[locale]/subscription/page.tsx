@@ -6,6 +6,8 @@ import { supabase } from '@/lib/supabaseClient';
 import { SUBSCRIPTION_PLANS, type SubscriptionPlan } from '@/lib/subscription';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 type UserSubscription = {
   userId: string;
   credits: number;
