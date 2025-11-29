@@ -15,6 +15,7 @@ const supabaseAdmin = supabaseServiceKey
   : null;
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 /**
  * GET /api/user/subscription-orders

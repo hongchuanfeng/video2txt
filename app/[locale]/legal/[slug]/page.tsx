@@ -3,9 +3,7 @@ import { notFound } from 'next/navigation';
 
 const legalPages = ['privacy', 'terms', 'refund', 'disclaimer', 'copyright', 'legal', 'ip'];
 
-export async function generateStaticParams() {
-  return legalPages.map((slug) => ({ slug }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const { slug } = params;
