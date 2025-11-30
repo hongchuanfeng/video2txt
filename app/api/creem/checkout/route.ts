@@ -76,6 +76,10 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         product_id: plan.productId,
+        metadata: {
+          internal_customer_id: user.id,
+          email: user.email ?? undefined
+        }
       }),
     });
 

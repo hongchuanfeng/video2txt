@@ -1,9 +1,9 @@
 creem 支付成功回调说明：
 
-https://xxx/zh?checkout_id=ch_3d1ljVeP5qh03wrVNcTIfJ&order_id=ord_5xdskrxY8aEYMtRroJvZf8&customer_id=
-cust_7iL6J3cGO2SpiUEia1oL9F&subscription_id=sub_4HIE6Lko7pI3eC5WQc1zQa&
-product_id=prod_4L6YdpnlJEdRjzPg9OjH8Z&signature=9b89165671453dd9d88de082535b348d1dfc1780a28f910230eef1f54ef5aed4
 
+回调参数中的header头含有creem-signature字段，值为signature字段。
+
+"creem-signature": "3f2ad853aa3f180d99a038641ea12031ddf930a9d68a87b2360ebcbce08c7624",
 
 上面的是回调的地址的参数，对signature字段用如下处理：
 
@@ -72,7 +72,87 @@ import * as crypto from 'crypto';
 }
 
 
+或是
+{
+  "id": "evt_ZJtfgcg8HeVJpy6MSYIEK",
+  "eventType": "checkout.completed",
+  "created_at": 1764464900081,
+  "object": {
+    "id": "ch_3eXMfac3kXsmUqfReCMIHD",
+    "object": "checkout",
+    "order": {
+      "object": "order",
+      "id": "ord_JAMEfYRIGW1GNMBsl6WKl",
+      "customer": "cust_7iL6J3cGO2SpiUEia1oL9F",
+      "product": "prod_1l9cjsowPhSJlsfrTTXlKb",
+      "amount": 990,
+      "currency": "USD",
+      "sub_total": 990,
+      "tax_amount": 0,
+      "amount_due": 990,
+      "amount_paid": 990,
+      "status": "paid",
+      "type": "recurring",
+      "transaction": "tran_19Tpvt1JB9CLql2YiTMWTl",
+      "created_at": "2025-11-30T01:07:33.553Z",
+      "updated_at": "2025-11-30T01:07:33.553Z",
+      "mode": "test"
+    },
+    "product": {
+      "id": "prod_1l9cjsowPhSJlsfrTTXlKb",
+      "object": "product",
+      "name": "test",
+      "description": "test api test api",
+      "price": 990,
+      "currency": "USD",
+      "billing_type": "recurring",
+      "billing_period": "every-month",
+      "status": "active",
+      "tax_mode": "exclusive",
+      "tax_category": "saas",
+      "default_success_url": "https://video2txt.zorezoro.com",
+      "created_at": "2025-11-13T15:07:09.812Z",
+      "updated_at": "2025-11-13T15:07:09.812Z",
+      "mode": "test"
+    },
+    "units": 1,
+    "customer": {
+      "id": "cust_7iL6J3cGO2SpiUEia1oL9F",
+      "object": "customer",
+      "email": "support@chdaoai.com",
+      "name": "ace",
+      "country": "CN",
+      "created_at": "2025-11-17T14:16:52.089Z",
+      "updated_at": "2025-11-17T14:16:52.089Z",
+      "mode": "test"
+    },
+    "subscription": {
+      "id": "sub_7WlgmsWiKmOPgTAfy9F5sk",
+      "object": "subscription",
+      "product": "prod_1l9cjsowPhSJlsfrTTXlKb",
+      "customer": "cust_7iL6J3cGO2SpiUEia1oL9F",
+      "collection_method": "charge_automatically",
+      "status": "active",
+      "current_period_start_date": "2025-11-30T01:07:59.000Z",
+      "current_period_end_date": "2025-12-30T01:07:59.000Z",
+      "canceled_at": null,
+      "created_at": "2025-11-30T01:08:06.727Z",
+      "updated_at": "2025-11-30T01:08:09.026Z",
+      "mode": "test"
+    },
+    "status": "completed",
+    "mode": "test"
+  }
+}
+
+
 secret :whsec_tsf4I58EXUxebny8SvoBv
+
+支付完成标识：
+1、"eventType": "subscription.paid"  表示支付完成。
+
+2、"eventType": "checkout.completed" 以及 object.order.status: "paid"  也表示支付完成。
+
 
 
 根据上面的资料获取回调参数，然后把数据添加到supabase数据库中，表名是subscription_orders，

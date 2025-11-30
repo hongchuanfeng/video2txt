@@ -15,6 +15,10 @@ const redirectUrl = await axios.post(
       `https://api.creem.io/v1/checkouts`,
         {
           product_id: 'xxxx',
+          metadata: {
+            internal_customer_id: user.id,
+            email: user.email ?? undefined
+          }
         },
         {
           headers: { "x-api-key": `CREEM_API_KEY` },
