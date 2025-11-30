@@ -251,6 +251,8 @@ export async function POST(request: NextRequest) {
     console.log('✅ Credits added successfully');
 
     // Create subscription order record
+    // Build payment_reference with multiple IDs for reference
+    const paymentReference = orderId || subscriptionId || payload.id;
     const subscriptionOrderData = {
       user_id: user.id,
       plan_id: plan.id,
@@ -261,12 +263,7 @@ export async function POST(request: NextRequest) {
       end_at: endAt ? endAt.toISOString() : null,
       status: 'completed',
       payment_provider: 'creem',
-      payment_reference: orderId || subscriptionId || payload.id,
-      creem_event_id: payload.id,
-      creem_event_type: eventType,
-      creem_subscription_id: subscriptionId,
-      creem_order_id: orderId,
-      creem_customer_id: subscriptionData?.customer?.id || payload.object?.customer?.id,
+      payment_reference: paymentReference,
     };
     
     console.log('\nCreating subscription order...');
