@@ -52,34 +52,50 @@ export default function Navbar() {
         return;
       }
 
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      if (!session?.access_token) {
-        setSubscription(null);
-        return;
-      }
-
       try {
-        const res = await fetch('/api/user/subscription', {
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-          },
-        });
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
-        if (!res.ok) {
+        if (!session?.access_token) {
           setSubscription(null);
           return;
         }
 
-        const data = await res.json();
-        setSubscription({
-          credits: data.credits ?? 0,
-          subscriptionPlanId: data.subscriptionPlanId ?? data.subscription_plan_id ?? null,
-          subscriptionExpiresAt: data.subscriptionExpiresAt ?? data.subscription_expires_at ?? null,
-        });
-      } catch {
+        try {
+          const res = await fetch('/api/user/subscription', {
+            headers: {
+              Authorization: `Bearer ${session.access_token}`,
+            },
+            // Add cache control to prevent stale data
+            cache: 'no-store',
+          });
+
+          if (!res.ok) {
+            // Silently fail - don't log errors for 401/403 as user might not be authenticated
+            if (res.status !== 401 && res.status !== 403) {
+              console.warn('Failed to fetch subscription:', res.status, res.statusText);
+            }
+            setSubscription(null);
+            return;
+          }
+
+          const data = await res.json();
+          setSubscription({
+            credits: data.credits ?? 0,
+            subscriptionPlanId: data.subscriptionPlanId ?? data.subscription_plan_id ?? null,
+            subscriptionExpiresAt: data.subscriptionExpiresAt ?? data.subscription_expires_at ?? null,
+          });
+        } catch (fetchError: any) {
+          // Silently handle network errors - don't break the UI
+          if (fetchError?.name !== 'AbortError') {
+            console.warn('Network error fetching subscription:', fetchError?.message || 'Unknown error');
+          }
+          setSubscription(null);
+        }
+      } catch (error: any) {
+        // Handle auth session errors
+        console.warn('Error getting auth session:', error?.message || 'Unknown error');
         setSubscription(null);
       }
     };
