@@ -154,6 +154,13 @@ secret :whsec_tsf4I58EXUxebny8SvoBv
 2、"eventType": "checkout.completed" 以及 object.order.status: "paid"  也表示支付完成。
 
 
+先根据传过来的数据中的：  "eventType": "subscription.paid", 中对应的last_transaction_id，
+以及eventType": "checkout.completed" 和 object.order.status: "paid" 中的 object.order.transaction
+
+这个交易id 判定是subscription_orders是否该记录，不存在 才添加到表中，再更新用户积分。
+存在就不处理数据。在subscription_orders 添加transaction_id字段，请重新修改回调。
+
+
 
 根据上面的资料获取回调参数，然后把数据添加到supabase数据库中，表名是subscription_orders，
 

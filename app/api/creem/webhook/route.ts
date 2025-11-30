@@ -99,6 +99,7 @@ export async function POST(request: NextRequest) {
     let internalCustomerId = null;
     let subscriptionId = null;
     let orderId = null;
+    let transactionId: string | null = null;
     let startAt: Date | null = null;
     let endAt: Date | null = null;
 
@@ -116,6 +117,7 @@ export async function POST(request: NextRequest) {
       customerEmail = subscriptionData.customer.email;
       subscriptionId = subscriptionData.id;
       internalCustomerId = subscriptionData.metadata?.internal_customer_id;
+      transactionId = subscriptionData.last_transaction_id || null;
       
       startAt = subscriptionData.current_period_start_date
         ? new Date(subscriptionData.current_period_start_date)
@@ -146,6 +148,7 @@ export async function POST(request: NextRequest) {
       productId = checkoutData.product.id;
       customerEmail = checkoutData.customer.email;
       orderId = checkoutData.order.id;
+      transactionId = checkoutData.order.transaction || null;
       
       // Get subscription data if available
       if (checkoutData.subscription) {
@@ -177,12 +180,44 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: 'Not a payment completion event' }, { status: 200 });
     }
 
+    // Check transaction_id
+    if (!transactionId) {
+      console.error('❌ No transaction_id found in webhook');
+      return NextResponse.json({ error: 'Transaction ID required' }, { status: 400 });
+    }
+
     console.log('\n=== Extracted Data ===');
+    console.log('  transactionId:', transactionId);
     console.log('  productId:', productId);
     console.log('  customerEmail:', customerEmail);
     console.log('  internalCustomerId:', internalCustomerId);
     console.log('  subscriptionId:', subscriptionId);
     console.log('  orderId:', orderId);
+
+    // Check if this transaction has already been processed
+    console.log('\n=== Checking for existing transaction ===');
+    const { data: existingOrder, error: checkError } = await supabaseAdmin
+      ?.from('subscription_orders')
+      .select('id, transaction_id')
+      .eq('transaction_id', transactionId)
+      .maybeSingle()
+      || { data: null, error: null };
+
+    if (checkError) {
+      console.error('❌ Error checking existing transaction:', checkError);
+      return NextResponse.json({ error: 'Database error' }, { status: 500 });
+    }
+
+    if (existingOrder) {
+      console.log('⚠️  Transaction already processed:', transactionId);
+      console.log('  Existing order ID:', existingOrder.id);
+      return NextResponse.json({ 
+        message: 'Transaction already processed',
+        order_id: existingOrder.id 
+      }, { status: 200 });
+    }
+
+    console.log('✅ Transaction is new, proceeding with processing...');
 
     if (!productId) {
       console.error('❌ No product_id found in webhook');
@@ -241,16 +276,7 @@ export async function POST(request: NextRequest) {
     console.log('  Start date:', startAt ? startAt.toISOString() : 'null');
     console.log('  End date:', endAt ? endAt.toISOString() : 'null');
 
-    // Add credits to user
-    console.log('\nAdding credits to user...');
-    const creditsAdded = await addCredits(user.id, plan.credits, plan.id);
-    if (!creditsAdded) {
-      console.error('❌ Failed to add credits for user:', user.id);
-      return NextResponse.json({ error: 'Failed to add credits' }, { status: 500 });
-    }
-    console.log('✅ Credits added successfully');
-
-    // Create subscription order record
+    // Create subscription order record first (before adding credits)
     // Build payment_reference with multiple IDs for reference
     const paymentReference = orderId || subscriptionId || payload.id;
     const subscriptionOrderData = {
@@ -264,6 +290,7 @@ export async function POST(request: NextRequest) {
       status: 'completed',
       payment_provider: 'creem',
       payment_reference: paymentReference,
+      transaction_id: transactionId,
     };
     
     console.log('\nCreating subscription order...');
@@ -276,10 +303,19 @@ export async function POST(request: NextRequest) {
 
     if (orderError) {
       console.error('❌ Error creating subscription order:', orderError);
-      // Don't fail the webhook, credits were already added
-    } else {
-      console.log('✅ Subscription order created successfully');
+      return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
     }
+    console.log('✅ Subscription order created successfully');
+
+    // Add credits to user after order is created
+    console.log('\nAdding credits to user...');
+    const creditsAdded = await addCredits(user.id, plan.credits, plan.id);
+    if (!creditsAdded) {
+      console.error('❌ Failed to add credits for user:', user.id);
+      // Order was created but credits failed - this is a problem but we'll log it
+      return NextResponse.json({ error: 'Failed to add credits' }, { status: 500 });
+    }
+    console.log('✅ Credits added successfully');
 
     console.log('\n=== Webhook Processing Complete ===');
     return NextResponse.json({ message: 'Webhook processed successfully' }, { status: 200 });

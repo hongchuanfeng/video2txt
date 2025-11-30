@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS subscription_orders (
   status TEXT NOT NULL DEFAULT 'completed',           -- 订单状态（pending / completed / failed / cancelled）
   payment_provider TEXT,                              -- 支付渠道（如 stripe / paypal，预留）
   payment_reference TEXT,                             -- 支付网关返回的订单号/交易号
+  transaction_id TEXT,                                -- CREEM 交易 ID（用于去重）
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),      -- 创建时间
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()       -- 更新时间
 );
@@ -100,6 +101,7 @@ COMMENT ON COLUMN subscription_orders.end_at            IS '套餐结束或到�
 COMMENT ON COLUMN subscription_orders.status            IS '订单状态：pending / completed / failed / cancelled。';
 COMMENT ON COLUMN subscription_orders.payment_provider  IS '支付渠道标识（如 stripe、paypal），预留字段。';
 COMMENT ON COLUMN subscription_orders.payment_reference IS '支付网关返回的交易号 / 订单号。';
+COMMENT ON COLUMN subscription_orders.transaction_id    IS 'CREEM 交易 ID，用于去重，防止重复处理。';
 COMMENT ON COLUMN subscription_orders.created_at        IS '记录创建时间。';
 COMMENT ON COLUMN subscription_orders.updated_at        IS '记录最近更新时间。';
 
@@ -109,6 +111,10 @@ CREATE INDEX IF NOT EXISTS idx_subscription_orders_user_id
 
 CREATE INDEX IF NOT EXISTS idx_subscription_orders_created_at
   ON subscription_orders(created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_subscription_orders_transaction_id
+  ON subscription_orders(transaction_id)
+  WHERE transaction_id IS NOT NULL;
 
 
   -- 视频转字幕使用记录表：记录每次调用视频转字幕接口的明细
