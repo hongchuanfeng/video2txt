@@ -23,7 +23,7 @@ export type SubscriptionPlan = {
 };
 
 export const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
-  { id: 'plan_10', name: 'Basic', price: 10, credits: 30, duration: 30, productId: 'prod_1l9cjsowPhSJlsfrTTXlKb' },
+  { id: 'plan_10', name: 'Basic', price: 10, credits: 30, duration: 30, productId: 'prod_N6rm4KG1ZeGvfnNOIzkjt' },
   { id: 'plan_30', name: 'Standard', price: 30, credits: 100, duration: 30, productId: 'prod_3CQsZ5gNb1Nhkl9a3Yxhs2' },
   { id: 'plan_100', name: 'Premium', price: 100, credits: 350, duration: 30, productId: 'prod_5h3JThYd4iw4SIDm6L5sCO' },
 ];
