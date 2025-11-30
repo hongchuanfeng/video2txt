@@ -59,7 +59,35 @@ export default function OrdersPage() {
 
           if (subscriptionResponse.ok) {
             const subscriptionData = await subscriptionResponse.json();
-            setSubscription(subscriptionData);
+            console.log('Orders page - Raw subscription data received:', subscriptionData);
+            console.log('Orders page - Credits value:', subscriptionData.credits);
+            console.log('Orders page - Credits type:', typeof subscriptionData.credits);
+            console.log('Orders page - Credits is null?', subscriptionData.credits === null);
+            console.log('Orders page - Credits is undefined?', subscriptionData.credits === undefined);
+            
+            // Ensure credits is a number - handle all cases
+            let creditsValue = 0;
+            if (subscriptionData.credits != null) {
+              const parsed = Number(subscriptionData.credits);
+              creditsValue = isNaN(parsed) ? 0 : parsed;
+            }
+            
+            console.log('Orders page - Processed credits value:', creditsValue);
+            
+            const processedSubscription = {
+              userId: subscriptionData.userId || subscriptionData.user_id,
+              credits: creditsValue,
+              freeTrialUsed: subscriptionData.freeTrialUsed ?? subscriptionData.free_trial_used ?? false,
+              subscriptionPlanId: subscriptionData.subscriptionPlanId ?? subscriptionData.subscription_plan_id ?? null,
+              subscriptionExpiresAt: subscriptionData.subscriptionExpiresAt ?? subscriptionData.subscription_expires_at ?? null,
+            };
+            
+            console.log('Orders page - Setting subscription:', processedSubscription);
+            setSubscription(processedSubscription);
+          } else {
+            console.error('Orders page - Failed to fetch subscription:', subscriptionResponse.status, subscriptionResponse.statusText);
+            const errorData = await subscriptionResponse.json().catch(() => ({}));
+            console.error('Orders page - Error details:', errorData);
           }
 
           // Fetch subscription orders history

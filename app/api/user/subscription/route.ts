@@ -64,10 +64,23 @@ export async function GET(request: NextRequest) {
 
     const user = data.user;
 
+    console.log('API /api/user/subscription - User from token:', {
+      userId: user.id,
+      email: user.email
+    });
+
     const subscription = await getUserSubscription(user.id);
     if (!subscription) {
+      console.error('API /api/user/subscription - Failed to get subscription for user:', user.id);
       return NextResponse.json({ error: '无法获取订阅信息' }, { status: 500 });
     }
+
+    console.log('API /api/user/subscription - Returning subscription:', {
+      userId: subscription.userId,
+      credits: subscription.credits,
+      creditsType: typeof subscription.credits,
+      fullSubscription: JSON.stringify(subscription)
+    });
 
     return NextResponse.json(subscription);
   } catch (error: any) {

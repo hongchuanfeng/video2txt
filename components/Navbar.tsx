@@ -248,6 +248,48 @@ export default function Navbar() {
                   >
                     中文
                   </button>
+                  <button
+                    onClick={() => changeLanguage('es')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    Español
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('fr')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    Français
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('ar')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    العربية
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('ru')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    Русский
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('pt')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    Português
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('de')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    Deutsch
+                  </button>
+                  <button
+                    onClick={() => changeLanguage('ja')}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"
+                  >
+                    日本語
+                  </button>
                 </div>
               )}
             </div>
@@ -357,9 +399,51 @@ export default function Navbar() {
               </button>
               <button
                 onClick={() => changeLanguage('zh')}
-                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors"
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
               >
                 中文
+              </button>
+              <button
+                onClick={() => changeLanguage('es')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
+              >
+                Español
+              </button>
+              <button
+                onClick={() => changeLanguage('fr')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
+              >
+                Français
+              </button>
+              <button
+                onClick={() => changeLanguage('ar')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
+              >
+                العربية
+              </button>
+              <button
+                onClick={() => changeLanguage('ru')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
+              >
+                Русский
+              </button>
+              <button
+                onClick={() => changeLanguage('pt')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
+              >
+                Português
+              </button>
+              <button
+                onClick={() => changeLanguage('de')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors mb-2"
+              >
+                Deutsch
+              </button>
+              <button
+                onClick={() => changeLanguage('ja')}
+                className="block w-full text-left text-gray-700 hover:text-primary-600 transition-colors"
+              >
+                日本語
               </button>
             </div>
           </div>

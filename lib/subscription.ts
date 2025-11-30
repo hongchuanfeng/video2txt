@@ -45,28 +45,135 @@ export async function getUserSubscription(userId: string): Promise<UserSubscript
     return null;
   }
 
+  console.log('getUserSubscription - Querying for userId:', userId);
+  console.log('getUserSubscription - userId type:', typeof userId);
+  console.log('getUserSubscription - userId trimmed:', userId?.trim());
+  console.log('getUserSubscription - userId length:', userId?.length);
+
+  // Try query without .single() first to see all matching records
+  const { data: allRecords, error: allError } = await supabaseAdmin
+    .from('user_subscriptions')
+    .select('user_id, credits, subscription_plan_id, free_trial_used, subscription_expires_at')
+    .eq('user_id', userId);
+  
+  console.log('getUserSubscription - All records query:', {
+    count: allRecords?.length || 0,
+    records: allRecords,
+    error: allError,
+    firstRecord: allRecords?.[0],
+    firstRecordCredits: allRecords?.[0]?.credits,
+    firstRecordPlanId: allRecords?.[0]?.subscription_plan_id
+  });
+
+  // If we have records, check if the first one matches
+  if (allRecords && allRecords.length > 0) {
+    const firstRecord = allRecords[0];
+    console.log('getUserSubscription - First record user_id match:', {
+      queryUserId: userId,
+      recordUserId: firstRecord.user_id,
+      match: firstRecord.user_id === userId,
+      credits: firstRecord.credits,
+      planId: firstRecord.subscription_plan_id
+    });
+  }
+
   const { data, error } = await supabaseAdmin
     .from('user_subscriptions')
-    .select('*')
+    .select('user_id, credits, subscription_plan_id, free_trial_used, subscription_expires_at')
     .eq('user_id', userId)
     .single();
 
   if (error) {
+    console.error('getUserSubscription - Query error:', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint
+    });
+    
     if (error.code === 'PGRST116') {
       // No record found, create one
+      console.log('getUserSubscription - No record found, creating new one for userId:', userId);
       return await createUserSubscription(userId);
     }
     console.error('Error fetching user subscription:', error);
     return null;
   }
 
-  return {
+  if (!data) {
+    console.error('getUserSubscription - No data returned from query');
+    return null;
+  }
+
+  // Log the raw data to see what we're getting
+  console.log('getUserSubscription - Raw data object:', data);
+  console.log('getUserSubscription - Data keys:', Object.keys(data));
+  console.log('getUserSubscription - Full data JSON:', JSON.stringify(data, null, 2));
+  
+  // Check all possible field name variations
+  console.log('getUserSubscription - Field access test:', {
+    'data.credits': data.credits,
+    'data["credits"]': data['credits'],
+    'data.subscription_plan_id': data.subscription_plan_id,
+    'data["subscription_plan_id"]': data['subscription_plan_id'],
+    'data.subscriptionPlanId': (data as any).subscriptionPlanId,
+    'data["subscriptionPlanId"]': (data as any)['subscriptionPlanId'],
+  });
+  
+  console.log('getUserSubscription - Credits field:', {
+    credits: data.credits,
+    creditsType: typeof data.credits,
+    creditsValue: data.credits,
+    creditsString: String(data.credits),
+    creditsNumber: Number(data.credits),
+    isNull: data.credits === null,
+    isUndefined: data.credits === undefined,
+    isZero: data.credits === 0,
+    isFalsy: !data.credits,
+    '=== 120': data.credits === 120,
+    '== 120': data.credits == 120
+  });
+  
+  console.log('getUserSubscription - Subscription plan field:', {
+    'data.subscription_plan_id': data.subscription_plan_id,
+    'data["subscription_plan_id"]': data['subscription_plan_id'],
+    type: typeof data.subscription_plan_id,
+    isNull: data.subscription_plan_id === null,
+    isUndefined: data.subscription_plan_id === undefined,
+    value: data.subscription_plan_id
+  });
+
+  // Ensure credits is a number, handle null/undefined cases
+  // Directly use the value from database
+  let credits = 0;
+  if (data.credits !== null && data.credits !== undefined) {
+    const parsedCredits = Number(data.credits);
+    if (!isNaN(parsedCredits)) {
+      credits = parsedCredits;
+    } else {
+      console.error('getUserSubscription - Credits is not a valid number:', data.credits);
+    }
+  } else {
+    console.warn('getUserSubscription - Credits is null or undefined, defaulting to 0');
+  }
+  
+  console.log('getUserSubscription - Processed credits:', credits);
+  
+  // Get subscription plan ID
+  const subscriptionPlanId = data.subscription_plan_id ?? null;
+  console.log('getUserSubscription - Processed subscriptionPlanId:', subscriptionPlanId);
+
+  const result = {
     userId: data.user_id,
-    credits: data.credits || 0,
+    credits: credits,
     freeTrialUsed: data.free_trial_used || false,
-    subscriptionPlanId: data.subscription_plan_id,
+    subscriptionPlanId: subscriptionPlanId,
     subscriptionExpiresAt: data.subscription_expires_at,
   };
+
+  console.log('getUserSubscription - Returning result:', result);
+
+  return result;
 }
 
 /**

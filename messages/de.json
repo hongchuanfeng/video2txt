@@ -1,0 +1,895 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "srtToText": "SRT zu Text",
+    "textToSrt": "Text zu SRT",
+    "subscription": "Abonnement",
+    "login": "Anmelden",
+    "loggedInAs": "Angemeldet als {email}",
+    "myCredits": "Meine Credits",
+    "myOrders": "Meine Bestellungen",
+    "myVideoJobs": "Meine Konvertierungshistorie",
+    "logout": "Abmelden",
+    "emailLabel": "E-Mail: {email}",
+    "creditsLabel": "Aktuelle Credits: {credits}",
+    "creditsLoading": "Credits werden geladen...",
+    "ordersPlan": "Aktueller Abonnementplan: {plan}",
+    "ordersEmpty": "Noch keine Abonnementaufzeichnungen"
+  },
+  "auth": {
+    "title": "Mit Google anmelden",
+    "subtitle": "Verknüpfen Sie Ihr Google-Konto, um kommende Personalisierungsfunktionen freizuschalten und Ihre Einstellungen überall verfügbar zu halten.",
+    "description": "Wir verlassen uns auf Supabase Auth, um den Google OAuth-Flow sicher abzuschließen. Nach dem Klicken auf die Schaltfläche werden Sie zu Google weitergeleitet, um die Berechtigung zu erteilen.",
+    "googleButton": "Mit Google fortfahren",
+    "googleButtonLoading": "Weiterleitung zu Google...",
+    "status": {
+      "signedIn": "Sie sind als {email} angemeldet",
+      "signedOut": "Sie sind noch nicht angemeldet."
+    },
+    "logout": "Abmelden",
+    "info": "Wenn Ihr Browser Pop-ups blockiert, erlauben Sie diese bitte für diese Website, bevor Sie es erneut versuchen.",
+    "errorPrefix": "Anmeldung fehlgeschlagen: {message}"
+  },
+  "videoToText": {
+    "title": "Video zu Text - Online-Konverter",
+    "subtitle": "Konvertieren Sie Video-Untertitel einfach und schnell in Textformat",
+    "description": "Online-Untertitel-Service, der Video-Untertitel in Text konvertiert. Laden Sie Ihr Video hoch und die Backend-Untertitel-API generiert Beschriftungen, die Sie exportieren können.",
+    "notice": "Um Video in Text zu konvertieren: 1) Extrahieren Sie die SRT-Untertiteldatei aus Ihrem Video mit den unten beschriebenen Methoden, 2) Laden Sie die SRT-Datei hier hoch, 3) Konvertieren Sie in Textformat.",
+    "uploadTitle": "Video-Datei hochladen",
+    "uploadDescription": "Laden Sie Ihr Video hoch und wir rufen die Smart Subtitle API auf, um Beschriftungen automatisch zu extrahieren.",
+    "tencentSubtitle": {
+      "title": "Video hochladen & Untertitel automatisch generieren",
+      "description": "Wählen Sie eine Video-Datei (MP4, MOV, AVI, MKV, etc.) aus und wir laden sie sicher auf den serverseitigen Smart Subtitle-Service hoch, um Beschriftungen automatisch zu extrahieren.",
+      "notice": "Videos werden während der Verarbeitung vorübergehend in Ihrem konfigurierten COS-Bucket gespeichert. Entfernen Sie sie nach Abschluss bei Bedarf.",
+      "sizeLimit": "Einzel-Upload-Limit: 1GB.",
+      "selectedFile": "Ausgewählt: {name}",
+      "submit": "Untertitel generieren",
+      "processing": "Verarbeitung über die Untertitel-API...",
+      "download": "Generierte SRT herunterladen",
+      "resultTitle": "Untertitel-Vorschau",
+      "taskId": "Aufgaben-ID: {taskId}",
+      "segmentCount": "Segmente: {count}",
+      "genericError": "API-Anfrage fehlgeschlagen. Bitte versuchen Sie es später erneut.",
+      "idle": "Die Untertitel-Vorschau erscheint hier, sobald die Verarbeitung abgeschlossen ist."
+    },
+    "loginRequiredNotice": "Anmeldung erforderlich, um die Video-zu-Untertitel-Funktion zu verwenden.",
+    "loginHere": "Klicken Sie hier, um sich anzumelden",
+    "currentCredits": "Aktuelle Credits: {credits}",
+    "freeTrialAvailable": "Sie haben eine kostenlose Testversion verfügbar (max. 1 Minute Video)",
+    "viewSubscription": "Abonnement anzeigen",
+    "videoDuration": "Videodauer: ~{duration} Minuten",
+    "requiredCredits": "Benötigt {credits} Credits",
+    "videoPreview": "Video-Vorschau",
+    "dragDrop": "Ziehen Sie Ihre Video-Datei hierher oder klicken Sie zum Durchsuchen",
+    "loadingFFmpeg": "FFmpeg.wasm wird geladen (dies kann beim ersten Mal einen Moment dauern)...",
+    "srtToText": "SRT zu Text",
+    "textToSrt": "Text zu SRT",
+    "instructions": "Um Text aus Video zu extrahieren:\n1. Extrahieren Sie Untertitel aus Ihrem Video als SRT-Datei\n2. Verwenden Sie unseren SRT-zu-Text-Konverter, um die Untertiteldatei zu konvertieren\n3. Oder verwenden Sie Video-Bearbeitungssoftware, um Untertitel zu exportieren\n\nFür Videos mit eingebetteten Untertiteln können Sie:\n- VLC Media Player verwenden, um Untertitel zu extrahieren\n- Online-Untertitel-Extraktoren verwenden\n- Untertitel aus Video-Bearbeitungssoftware exportieren",
+    "error": {
+      "title": "Fehler",
+      "invalidFile": "Bitte wählen Sie eine gültige Video-Datei aus (MP4, AVI, MOV, MKV, etc.)",
+      "invalidSrtFile": "Bitte wählen Sie eine gültige SRT-Datei aus",
+      "noFile": "Bitte laden Sie zuerst eine Video-Datei hoch",
+      "noSrtFile": "Bitte laden Sie zuerst eine SRT-Datei hoch",
+      "noSubtitles": "Keine Untertitel im Video gefunden. Das Video hat möglicherweise keine eingebetteten Untertitelspuren.",
+      "videoNotReady": "Bitte warten Sie, bis das Video vollständig geladen ist",
+      "videoNotSupported": "Direkte Video-Dateiverarbeitung ist nicht verfügbar. Bitte extrahieren Sie zuerst die SRT-Untertiteldatei aus Ihrem Video mit den unten beschriebenen Methoden, dann laden Sie die SRT-Datei hier hoch.",
+      "conversion": "Fehler beim Verarbeiten der SRT-Datei. Bitte überprüfen Sie das Dateiformat und versuchen Sie es erneut.",
+      "fileTooLarge": "Datei ist zu groß. Maximale Größe: 10MB.",
+      "ffmpegLoadFailed": "FFmpeg.wasm konnte von allen CDN-Quellen nicht geladen werden. Bitte überprüfen Sie Ihre Internetverbindung, Firewall-Einstellungen oder versuchen Sie es später erneut. Wenn das Problem weiterhin besteht, können Sie die SRT-Datei manuell mit VLC Media Player extrahieren.",
+      "invalidFormat": "Nicht unterstütztes Videoformat oder beschädigte Datei. Bitte versuchen Sie eine andere Video-Datei.",
+      "corruptedFile": "Die Video-Datei scheint leer oder beschädigt zu sein. Bitte versuchen Sie eine andere Datei.",
+      "suggestion": "Sie können die SRT-Datei manuell mit VLC Media Player oder anderen Tools extrahieren und dann unseren SRT-zu-Text-Konverter verwenden.",
+      "loginRequired": "Bitte melden Sie sich an, um die Video-zu-Untertitel-Funktion zu verwenden",
+      "insufficientCredits": "Nicht genügend Credits, bitte abonnieren Sie einen Plan",
+      "checkFailed": "Credits konnten nicht überprüft werden, bitte versuchen Sie es erneut",
+      "troubleshooting": {
+        "title": "Schritte zur Fehlerbehebung:",
+        "step1": "Überprüfen Sie Ihre Internetverbindung und versuchen Sie, die Seite zu aktualisieren",
+        "step2": "Deaktivieren Sie Browser-Erweiterungen (insbesondere Werbeblocker oder Datenschutz-Tools)",
+        "step3": "Versuchen Sie einen anderen Browser (Chrome, Firefox, Edge, Safari)",
+        "step4": "Überprüfen Sie, ob Ihre Firewall oder Ihr Proxy den CDN-Zugriff blockiert"
+      },
+      "alternative": {
+        "title": "Alternative Lösung:",
+        "desc": "Wenn FFmpeg.wasm nicht geladen werden kann, können Sie die SRT-Datei manuell aus Ihrem Video extrahieren und unseren SRT-zu-Text-Konverter verwenden:",
+        "button": "Zum SRT-zu-Text-Konverter"
+      }
+    },
+    "extractSrt": {
+      "title": "How to Extract SRT from Video",
+      "method1": {
+        "title": "Using FFmpeg (Command Line)",
+        "desc": "If you have FFmpeg installed, use this command to extract subtitles:",
+        "command": "ffmpeg -i your-video.mp4 -map 0:s:0 output.srt"
+      },
+      "method2": {
+        "title": "Using VLC Media Player",
+        "desc": "Open your video in VLC, go to Subtitle > Save Subtitle File, and save as SRT format."
+      },
+      "method3": {
+        "title": "Using Online Tools",
+        "desc": "Use online subtitle extractors like CloudConvert, Online-Convert, or similar services to extract SRT from your video."
+      }
+    },
+    "howToUse": {
+      "title": "How to Use",
+      "step1": "Click \"Upload Video\" (or drag & drop) to add the video that needs subtitles.",
+      "step2": "Once the upload is finished, click \"Generate Subtitles\" so the API can process it.",
+      "step3": "When processing finishes, download the generated SRT or copy it from the preview.",
+      "videoDemo": {
+        "title": "Video Tutorial",
+        "description": "Watch the video below to learn how to use this tool",
+        "notSupported": "Your browser does not support video playback"
+      },
+      "imageExamples": {
+        "title": "Image Examples",
+        "image1Alt": "Video to text example image 1",
+        "image2Alt": "Video to text example image 2"
+      }
+    },
+    "features": {
+      "title": "Features",
+      "video": {
+        "title": "Video Support",
+        "desc": "Support for multiple video formats including MP4, AVI, MOV, MKV, and more"
+      },
+      "text": {
+        "title": "Text Extraction",
+        "desc": "Extract text content from video subtitles and transcripts"
+      },
+      "fast": {
+        "title": "Fast & Reliable",
+        "desc": "Server-side APIs process subtitles in minutes with high accuracy"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How do I convert video to text?",
+      "a1": "First, extract the SRT subtitle file from your video using VLC Media Player, FFmpeg, or other tools. Then upload the SRT file here to convert it to text format.",
+      "q2": "What video formats are supported?",
+      "a2": "You can extract SRT from any video format (MP4, AVI, MOV, MKV, etc.) using the extraction methods above. Once you have the SRT file, upload it here to convert to text.",
+      "q3": "How is the service priced?",
+      "a3": "Subtitle APIs are billed based on usage. Please contact support for detailed pricing."
+    }
+  },
+  "srtToText": {
+    "title": "SRT-zu-Text-Konverter",
+    "subtitle": "Konvertieren Sie SRT-Untertiteldateien einfach und schnell in Textformat",
+    "description": "Online-Untertitel-Utility, die SRT-Dateien in Klartext konvertiert und Zeitcodes, Inhalte, Übersetzungen und Originaltext extrahiert.",
+    "upload": "SRT-Datei hochladen",
+    "convert": "In Text konvertieren",
+    "download": "Text-Datei herunterladen",
+    "dragDrop": "Ziehen Sie Ihre SRT-Datei hierher oder klicken Sie zum Durchsuchen",
+    "convertToSrt": "Text zu SRT konvertieren",
+    "error": {
+      "invalidFile": "Bitte wählen Sie eine gültige SRT-Datei aus",
+      "noFile": "Bitte wählen Sie zuerst eine Datei aus",
+      "conversion": "Fehler beim Konvertieren der Datei. Bitte versuchen Sie es erneut."
+    },
+    "features": {
+      "title": "Funktionen",
+      "timecode": "Zeitcode-Extraktion",
+      "timecodeDesc": "Extrahieren Sie alle Zeitcodes aus Ihren SRT-Dateien",
+      "content": "Inhaltsextraktion",
+      "contentDesc": "Erhalten Sie alle Untertitelinhalte im Textformat",
+      "translation": "Übersetzungsunterstützung",
+      "translationDesc": "Extrahieren Sie Übersetzungen und Originaltext",
+      "fast": "Schnelle Verarbeitung",
+      "fastDesc": "Konvertieren Sie Dateien sofort ohne Wartezeit"
+    },
+    "howToUse": {
+      "title": "Verwendung",
+      "step1": "Klicken Sie auf \"SRT-Datei hochladen\" oder ziehen Sie die Untertiteldatei, die Sie konvertieren möchten, per Drag & Drop.",
+      "step2": "Sobald die Datei ausgewählt ist, klicken Sie auf \"In Text konvertieren\", um die Konvertierung zu starten.",
+      "step3": "Überprüfen Sie nach der Konvertierung den Text unten und laden Sie ihn als Datei herunter oder kopieren Sie ihn nach Bedarf.",
+      "videoDemo": {
+        "title": "Video-Tutorial",
+        "description": "Sehen Sie sich das Video unten an, um zu erfahren, wie Sie dieses Tool verwenden",
+        "notSupported": "Ihr Browser unterstützt keine Videowiedergabe"
+      }
+    },
+    "example": {
+      "title": "Beispiel",
+      "description": "Sehen Sie, wie SRT-Dateien in Textformat konvertiert werden"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": "Was ist eine SRT-Datei?",
+      "a1": "SRT (SubRip Subtitle) ist ein Untertiteldateiformat, das Zeitinformationen und Text für Untertitel enthält.",
+      "q2": "Welches Format wird die Ausgabe haben?",
+      "a2": "Die Ausgabe wird Klartext mit Zeitcodes, Inhalten, Übersetzungen und Originaltext sein.",
+      "q3": "Wie viel kostet es?",
+      "a3": "Das SRT-zu-Text-Tool ist derzeit kostenlos und erfordert keine zusätzliche Zahlung.",
+      "q4": "Kann ich mehrere Dateien konvertieren?",
+      "a4": "Sie können eine Datei nach der anderen konvertieren; laden Sie wiederholt für Batch-Szenarien hoch."
+    }
+  },
+  "textToSrt": {
+    "title": "Text-zu-SRT-Konverter",
+    "subtitle": "Konvertieren Sie Textdateien einfach und schnell in SRT-Untertitelformat",
+    "description": "Online-Tool zum Konvertieren von Textdateien in SRT-Untertitel, das Einträge mit Zeitcodes, Inhalten, Übersetzungen und Originaltext erstellt.",
+    "dragDrop": "Ziehen Sie Ihre Textdatei hierher oder klicken Sie zum Durchsuchen",
+    "loadFile": "Dateiinhalt laden",
+    "textInput": "Texteingabe",
+    "textPlaceholder": "Fügen Sie Ihren Text hier ein oder laden Sie ihn aus einer Datei...",
+    "autoGenerateTime": "Zeitcodes automatisch generieren",
+    "autoGenerateTimeDesc": "Wenn aktiviert, werden Zeitcodes automatisch generiert, wenn sie nicht im Text angegeben sind",
+    "convert": "In SRT konvertieren",
+    "download": "SRT-Datei herunterladen",
+    "srtOutput": "SRT-Ausgabe",
+    "convertToText": "SRT zu Text konvertieren",
+    "error": {
+      "invalidFile": "Bitte wählen Sie eine gültige Textdatei aus (.txt oder .text)",
+      "noFile": "Bitte wählen Sie zuerst eine Datei aus",
+      "readFile": "Fehler beim Lesen der Datei. Bitte versuchen Sie es erneut.",
+      "noText": "Bitte geben Sie Textinhalt ein oder laden Sie ihn",
+      "noEntries": "Keine gültigen Einträge im Text gefunden",
+      "missingTime": "Einigen Einträgen fehlen Zeitcodes. Bitte fügen Sie Zeitcodes hinzu oder aktivieren Sie die automatische Generierung.",
+      "conversion": "Fehler beim Konvertieren des Textes. Bitte überprüfen Sie das Format und versuchen Sie es erneut."
+    },
+    "formatGuide": {
+      "title": "Textformat-Anleitung",
+      "description": "Ihre Textdatei sollte diesem Format folgen. Jeder Eintrag sollte durch eine Leerzeile getrennt sein:",
+      "example": "Time: 00:00:01,000 --> 00:00:03,000\nContent: Hello world\nTranslation: 你好世界\nSubtitle: Hello world\n\nTime: 00:00:04,000 --> 00:00:06,000\nContent: How are you?\nSubtitle: How are you?",
+      "videoDemo": {
+        "title": "Video-Tutorial",
+        "description": "Sehen Sie sich das Video unten an, um zu erfahren, wie Sie dieses Tool verwenden",
+        "notSupported": "Ihr Browser unterstützt keine Videowiedergabe"
+      }
+    },
+    "features": {
+      "title": "Funktionen",
+      "format": {
+        "title": "Flexibles Format",
+        "desc": "Unterstützt verschiedene Textformate mit Zeitcodes und Inhalten"
+      },
+      "timecode": {
+        "title": "Automatische Zeitcodes",
+        "desc": "Zeitcodes automatisch generieren, wenn nicht angegeben"
+      },
+      "translation": {
+        "title": "Übersetzungsunterstützung",
+        "desc": "Übersetzungen und Originaltext im SRT-Format einschließen"
+      }
+    }
+  },
+  "about": {
+    "title": "Über uns",
+    "description": "Wir bieten Online-Untertitel-/Textverarbeitungsdienste an, die Teams dabei helfen, verschiedene Formate effizient zu konvertieren und zu verwalten. Ob Sie die Self-Service-UI oder die Backend-APIs verwenden, wir konzentrieren uns auf Zuverlässigkeit und Benutzerfreundlichkeit.",
+    "mission": {
+      "title": "Unsere Mission",
+      "content": "Unsere Mission ist es, benutzerfreundliche, vertrauenswürdige Tools bereitzustellen, die Teams dabei helfen, Untertitel und Text effizienter zu verarbeiten. Mit flexiblen Preisen und zuverlässiger Infrastruktur stellen wir sicher, dass Organisationen jeder Größe reibungslos einsteigen können."
+    },
+    "vision": {
+      "title": "Unsere Vision",
+      "content": "Wir stellen uns eine Welt vor, in der die Konvertierung von Untertiteln und Text nahtlos und zuverlässig ist, unabhängig von der Teamgröße oder dem Budget. Wir streben danach, der bevorzugte Anbieter zuverlässiger Untertitel-Services zu sein, die Workflows in Bewegung halten."
+    },
+    "values": {
+      "title": "Unsere Werte",
+      "content": "Wir lassen uns von Zugänglichkeit, Zuverlässigkeit und benutzerzentriertem Design leiten. Jede Funktion, die wir veröffentlichen, zielt darauf ab, die tägliche Zusammenarbeit wirklich zu verbessern."
+    },
+    "history": {
+      "title": "Unsere Geschichte",
+      "content": "Wir haben als kleines Team begonnen, das besessen davon war, Untertitel-Workflows praktischer zu gestalten. Heute bedienen wir weiterhin globale Kunden mit sowohl Self-Service-Tools als auch Unternehmensintegrationen."
+    },
+    "team": {
+      "title": "Unser Team",
+      "subtitle": "Lernen Sie die talentierten Personen hinter unserer Plattform kennen",
+      "member1": {
+        "name": "Alex Thompson",
+        "role": "Gründer & CEO",
+        "bio": "Alex ist ein erfahrener Software-Ingenieur mit über 10 Jahren Erfahrung in Webentwicklung und Dateiverarbeitungstechnologien. Er gründete das Unternehmen mit der Vision, Dateikonvertierungs-Tools für alle zugänglich zu machen."
+      },
+      "member2": {
+        "name": "Sarah Chen",
+        "role": "Lead-Entwicklerin",
+        "bio": "Sarah ist spezialisiert auf Frontend-Entwicklung und User Experience Design. Sie stellt sicher, dass unsere Tools nicht nur funktional, sondern auch intuitiv und benutzerfreundlich sind."
+      },
+      "member3": {
+        "name": "Michael Rodriguez",
+        "role": "Backend-Ingenieur",
+        "bio": "Michael ist verantwortlich für die robuste Infrastruktur, die unsere Konvertierungs-Tools antreibt. Er stellt sicher, dass unsere Dienste schnell, zuverlässig und skalierbar sind."
+      },
+      "member4": {
+        "name": "Emily Johnson",
+        "role": "Produktdesignerin",
+        "bio": "Emily konzentriert sich auf die Erstellung schöner und funktionaler Benutzeroberflächen. Ihre Designs machen komplexe Dateikonvertierungsprozesse einfach und angenehm."
+      },
+      "member5": {
+        "name": "David Kim",
+        "role": "Qualitätssicherung",
+        "bio": "David stellt sicher, dass alle unsere Tools die höchsten Qualitätsstandards erfüllen. Er testet jede Funktion gründlich, um Benutzern ein nahtloses Erlebnis zu bieten."
+      },
+      "member6": {
+        "name": "Jessica Martinez",
+        "role": "Kundensupport",
+        "bio": "Jessica ist darauf ausgerichtet, unseren Benutzern zu helfen. Sie stellt sicher, dass jede Benutzerfrage prompt beantwortet und jedes Problem effizient gelöst wird."
+      }
+    },
+    "whyChooseUs": {
+      "title": "Warum uns wählen?",
+      "feature1": {
+        "title": "Schnell & Zuverlässig",
+        "description": "Blitzschnelle Konvertierung mit 99,9% Uptime-Garantie"
+      },
+      "feature2": {
+        "title": "Datenschutz zuerst",
+        "description": "Alle Konvertierungen erfolgen lokal in Ihrem Browser"
+      },
+      "feature3": {
+        "title": "Flexible Preise",
+        "description": "Zahlen Sie pro API-Nutzung oder wählen Sie ein maßgeschneidertes Unternehmenspaket"
+      }
+    }
+  },
+  "contact": {
+    "title": "Kontaktieren Sie uns",
+    "subtitle": "Wir würden gerne von Ihnen hören. Nehmen Sie Kontakt mit uns auf!",
+    "description": "Haben Sie eine Frage, einen Vorschlag oder Feedback? Wir sind hier, um zu helfen! Kontaktieren Sie uns über eine der folgenden Methoden, und wir werden uns so schnell wie möglich bei Ihnen melden.",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "addressValue": "130 Longhua Avenue, Longhua District, Shenzhen",
+    "businessHours": {
+      "title": "Geschäftszeiten",
+      "content": "Montag - Freitag: 9:00 - 18:00 Uhr (GMT+8)\nSamstag: 10:00 - 16:00 Uhr (GMT+8)\nSonntag: Geschlossen"
+    },
+    "responseTime": {
+      "title": "Antwortzeit",
+      "content": "Wir antworten normalerweise innerhalb von 24-48 Stunden während der Geschäftstage auf E-Mails. Für dringende Angelegenheiten markieren Sie bitte Ihre E-Mail als dringend."
+    },
+    "support": {
+      "title": "Kundensupport",
+      "content": "Unser engagiertes Support-Team steht Ihnen bei Fragen oder Problemen zur Verfügung. Wir sind bestrebt, exzellenten Kundenservice zu bieten."
+    },
+    "partnership": {
+      "title": "Partnerschaft & Zusammenarbeit",
+      "content": "Interessiert an einer Partnerschaft mit uns oder einer Zusammenarbeit an einem Projekt? Wir sind immer offen für neue Möglichkeiten und Partnerschaften, die mit unserer Mission übereinstimmen."
+    },
+    "form": {
+      "title": "Senden Sie uns eine Nachricht",
+      "name": "Name",
+      "email": "E-Mail",
+      "subject": "Betreff",
+      "message": "Nachricht",
+      "send": "Nachricht senden",
+      "success": "Nachricht erfolgreich gesendet! Wir werden uns bald bei Ihnen melden.",
+      "error": "Beim Senden Ihrer Nachricht ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    }
+  },
+  "footer": {
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "refund": "Rückerstattungsrichtlinie",
+    "disclaimer": "Haftungsausschluss",
+    "copyright": "Urheberrechtshinweis",
+    "legal": "Rechtlicher Hinweis",
+    "ip": "Geistiges Eigentum",
+    "contact": "Kontakt",
+    "address": "Adresse",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "quickLinks": "Schnelllinks",
+    "home": "Startseite",
+    "srtToText": "SRT zu Text",
+    "textToSrt": "Text zu SRT",
+    "subscription": "Abonnement",
+    "aboutUs": "Über uns",
+    "contactUs": "Kontaktieren Sie uns",
+    "legalTitle": "Rechtliches",
+    "moreTitle": "Mehr",
+    "copyrightText": "SRT-zu-Text-Konverter. Alle Rechte vorbehalten."
+  },
+  "legal": {
+    "privacy": {
+      "title": "Datenschutzrichtlinie",
+      "content": "Wir respektieren Ihre Privatsphäre und sind verpflichtet, Ihre persönlichen Informationen zu schützen. Diese Datenschutzrichtlinie erklärt, wie wir Ihre Daten sammeln, verwenden und schützen, wenn Sie unsere Dienste nutzen.",
+      "intro": "Diese Datenschutzrichtlinie beschreibt, wie der SRT-zu-Text-Konverter Ihre persönlichen Informationen sammelt, verwendet und schützt, wenn Sie unsere Website und Dienste nutzen. Wir sind verpflichtet, die höchsten Standards des Datenschutzes und der Privatsphäre aufrechtzuerhalten.",
+      "lastUpdated": "Zuletzt aktualisiert: Januar 2024",
+      "informationCollection": {
+        "title": "Informationen, die wir sammeln",
+        "content": "Wir sammeln minimale Informationen, um unsere Dienste bereitzustellen und zu verbessern. Da unsere Dateikonvertierung vollständig in Ihrem Browser stattfindet, sammeln oder speichern wir Ihre Dateien nicht. Wir können sammeln:",
+        "items": {
+          "item1": "Nutzungsdaten: Informationen darüber, wie Sie mit unserer Website interagieren (besuchte Seiten, verbrachte Zeit, etc.)",
+          "item2": "Technische Daten: Browsertyp, Geräteinformationen, IP-Adresse (anonymisiert) und Betriebssystem",
+          "item3": "Kontaktinformationen: Nur wenn Sie sie freiwillig über unser Kontaktformular bereitstellen (Name, E-Mail, Nachricht)"
+        }
+      },
+      "howWeUse": {
+        "title": "Wie wir Ihre Informationen verwenden",
+        "content": "Wir verwenden die von uns gesammelten Informationen ausschließlich für folgende Zwecke:",
+        "items": {
+          "item1": "Zur Bereitstellung und Aufrechterhaltung unserer Dienste",
+          "item2": "Zur Verbesserung der Benutzererfahrung und Website-Funktionalität",
+          "item3": "Zur Beantwortung Ihrer Anfragen und Bereitstellung von Kundensupport",
+          "item4": "Zur Analyse von Website-Nutzungsmustern und Optimierung der Leistung",
+          "item5": "Zur Gewährleistung der Website-Sicherheit und Verhinderung von Betrug"
+        }
+      },
+      "dataStorage": {
+        "title": "Datenspeicherung und Sicherheit",
+        "content": "Ihre Privatsphäre hat für uns Priorität. Alle Dateikonvertierungen werden lokal in Ihrem Browser durchgeführt - Ihre Dateien verlassen Ihr Gerät nie und werden nie auf unseren Servern gespeichert. Wir implementieren branchenübliche Sicherheitsmaßnahmen, einschließlich Verschlüsselung, sichere Verbindungen (HTTPS) und regelmäßige Sicherheitsaudits, um alle von uns gesammelten Daten zu schützen."
+      },
+      "cookies": {
+        "title": "Cookies und Tracking-Technologien",
+        "content": "Wir können Cookies und ähnliche Tracking-Technologien verwenden, um Ihre Erfahrung zu verbessern. Cookies sind kleine Textdateien, die auf Ihrem Gerät gespeichert werden und uns helfen, Ihre Präferenzen zu speichern und die Website-Funktionalität zu verbessern. Sie können Cookie-Einstellungen über Ihre Browser-Präferenzen steuern. Wir verwenden Cookies für:",
+        "items": {
+          "item1": "Grundlegende Funktionalität: Sicherstellung, dass die Website ordnungsgemäß funktioniert",
+          "item2": "Analysen: Verstehen, wie Besucher unsere Website nutzen (unter Verwendung anonymisierter Daten)",
+          "item3": "Präferenzen: Speichern Ihrer Sprache und Anzeigeeinstellungen"
+        }
+      },
+      "thirdParty": {
+        "title": "Drittanbieter-Dienste",
+        "content": "Wir können Drittanbieter-Dienste für Analysen und Website-Funktionalität verwenden. Diese Dienste können Informationen über Ihre Nutzung unserer Website sammeln. Wir teilen jedoch Ihre persönlichen Informationen nicht mit Dritten zu Marketingzwecken. Alle von uns verwendeten Drittanbieter-Dienste sind mit Datenschutzbestimmungen konform."
+      },
+      "dataRetention": {
+        "title": "Datenspeicherung",
+        "content": "Wir speichern persönliche Informationen nur so lange, wie es zur Erfüllung der in dieser Richtlinie dargelegten Zwecke erforderlich ist, es sei denn, eine längere Aufbewahrungsfrist ist gesetzlich vorgeschrieben. Da wir Ihre Dateien nicht speichern, gibt es keine Dateidaten, die aufbewahrt werden müssen. Analysedaten werden typischerweise bis zu 24 Monate in anonymisierter Form aufbewahrt."
+      },
+      "yourRights": {
+        "title": "Ihre Datenschutzrechte",
+        "content": "Sie haben das Recht:",
+        "items": {
+          "item1": "Zugang: Informationen darüber anzufordern, welche Daten wir über Sie speichern",
+          "item2": "Berichtigung: Berichtigung ungenauer Daten anzufordern",
+          "item3": "Löschung: Löschung Ihrer persönlichen Daten anzufordern",
+          "item4": "Widerspruch: Widerspruch gegen die Verarbeitung Ihrer Daten einzulegen",
+          "item5": "Datenübertragbarkeit: Übertragung Ihrer Daten anzufordern"
+        },
+        "contact": "Um diese Rechte auszuüben, kontaktieren Sie uns bitte unter video2txt@zorezoro.com"
+      },
+      "children": {
+        "title": "Datenschutz von Kindern",
+        "content": "Unsere Dienste richten sich nicht an Kinder unter 13 Jahren. Wir sammeln wissentlich keine persönlichen Informationen von Kindern. Wenn Sie Elternteil oder Erziehungsberechtigter sind und glauben, dass Ihr Kind uns persönliche Informationen bereitgestellt hat, kontaktieren Sie uns bitte sofort."
+      },
+      "international": {
+        "title": "Internationale Datenübertragungen",
+        "content": "Unsere Dienste sind weltweit zugänglich. Wenn Sie von außerhalb der Gerichtsbarkeit, in der sich unsere Server befinden, auf unsere Dienste zugreifen, beachten Sie bitte, dass Ihre Informationen möglicherweise in ein anderes Land übertragen, gespeichert und verarbeitet werden. Wir stellen sicher, dass angemessene Schutzmaßnahmen vorhanden sind, um Ihre Daten zu schützen."
+      },
+      "changes": {
+        "title": "Änderungen an dieser Datenschutzrichtlinie",
+        "content": "Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren, um Änderungen in unseren Praktiken oder gesetzlichen Anforderungen widerzuspiegeln. Wir werden Sie über wesentliche Änderungen informieren, indem wir die neue Richtlinie auf dieser Seite mit einem aktualisierten 'Zuletzt aktualisiert'-Datum veröffentlichen. Ihre fortgesetzte Nutzung unserer Dienste nach solchen Änderungen stellt die Annahme der aktualisierten Richtlinie dar."
+      },
+      "contact": {
+        "title": "Kontaktieren Sie uns zum Datenschutz",
+        "content": "Wenn Sie Fragen, Bedenken oder Anfragen zu dieser Datenschutzrichtlinie oder unseren Datenpraktiken haben, kontaktieren Sie uns bitte unter video2txt@zorezoro.com. Wir werden Ihre Anfrage innerhalb von 30 Tagen beantworten."
+      }
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "content": "Durch die Nutzung unseres Dienstes stimmen Sie diesen Bedingungen zu. Bitte lesen Sie sie sorgfältig durch, bevor Sie unseren SRT-zu-Text-Konverter verwenden.",
+      "intro": "Diese Nutzungsbedingungen regeln Ihren Zugang zu und die Nutzung der SRT-zu-Text-Konverter-Website und -Dienste. Durch den Zugriff auf oder die Nutzung unserer Dienste stimmen Sie zu, an diese Bedingungen gebunden zu sein. Wenn Sie diesen Bedingungen nicht zustimmen, verwenden Sie bitte unsere Dienste nicht.",
+      "lastUpdated": "Zuletzt aktualisiert: Januar 2024",
+      "acceptance": {
+        "title": "Annahme der Bedingungen",
+        "content": "Durch den Zugriff auf, das Durchsuchen oder die Nutzung dieser Website bestätigen Sie, dass Sie diese Nutzungsbedingungen und alle geltenden Gesetze und Vorschriften gelesen, verstanden haben und zustimmen, an sie gebunden zu sein. Wenn Sie mit einer dieser Bedingungen nicht einverstanden sind, ist es Ihnen untersagt, diese Website zu verwenden oder darauf zuzugreifen."
+      },
+      "description": {
+        "title": "Dienstbeschreibung",
+        "content": "Der SRT-zu-Text-Konverter bietet Untertitel-/Textverarbeitungsfunktionen, einschließlich browserbasierter Tools und Backend-APIs, die SRT (SubRip Subtitle) oder videogenerierte Untertitel in Text konvertieren. Wir behalten uns das Recht vor, jeden Aspekt des Dienstes jederzeit zu ändern, auszusetzen oder einzustellen."
+      },
+      "userAccount": {
+        "title": "Benutzerkonten",
+        "content": "Derzeit erfordert unser Dienst keine Benutzerregistrierung oder Kontenerstellung. Sie können unsere Dienste ohne Erstellung eines Kontos nutzen. Wenn wir in Zukunft Kontofunktionen einführen, gelten zusätzliche Bedingungen."
+      },
+      "acceptableUse": {
+        "title": "Richtlinie für akzeptable Nutzung",
+        "content": "Sie stimmen zu, unsere Dienste nur für rechtmäßige Zwecke und in Übereinstimmung mit diesen Bedingungen zu verwenden. Sie stimmen zu, NICHT:",
+        "items": {
+          "item1": "Den Dienst für illegale oder nicht autorisierte Zwecke zu verwenden",
+          "item2": "Irgendwelche Gesetze in Ihrer Gerichtsbarkeit zu verletzen",
+          "item3": "Viren, Malware oder schädlichen Code zu übertragen",
+          "item4": "Zu versuchen, nicht autorisierten Zugriff auf unsere Systeme zu erlangen",
+          "item5": "Den Dienst oder die Server zu stören oder zu unterbrechen",
+          "item6": "Automatisierte Systeme zu verwenden, um übermäßig auf den Dienst zuzugreifen",
+          "item7": "Den Dienst ohne Erlaubnis zu reproduzieren, zu duplizieren oder zu kopieren"
+        }
+      },
+      "userContent": {
+        "title": "Benutzerinhalte und Dateien",
+        "content": "Sie behalten alle Eigentumsrechte an Dateien, die Sie hochladen. Durch die Nutzung unseres Dienstes erklären und garantieren Sie, dass: (1) Sie die Dateien, die Sie hochladen, besitzen oder das Recht haben, sie zu verwenden, (2) Ihre Dateien keine Rechte Dritter verletzen, und (3) Ihre Dateien keine illegalen, schädlichen oder anstößigen Inhalte enthalten. Wir überwachen oder überprüfen keine Benutzerdateien, behalten uns aber das Recht vor, den Dienst für jeden zu verweigern."
+      },
+      "intellectualProperty": {
+        "title": "Rechte des geistigen Eigentums",
+        "content": "Alle Inhalte, Funktionen und Funktionalitäten des Dienstes, einschließlich aber nicht beschränkt auf Text, Grafiken, Logos und Software, sind Eigentum des SRT-zu-Text-Konverters oder seiner Lizenzgeber und sind durch Urheberrechts-, Marken- und andere Gesetze zum geistigen Eigentum geschützt. Sie dürfen ohne unsere ausdrückliche schriftliche Genehmigung nichts kopieren, modifizieren oder abgeleitete Werke erstellen."
+      },
+      "prohibited": {
+        "title": "Verbotene Aktivitäten",
+        "content": "Zusätzlich zu den Einschränkungen in der Richtlinie für akzeptable Nutzung ist Ihnen ausdrücklich untersagt:",
+        "items": {
+          "item1": "Reverse Engineering oder Versuche, Quellcode zu extrahieren",
+          "item2": "Den Dienst zu verwenden, um mit uns zu konkurrieren oder ähnliche Dienste zu erstellen",
+          "item3": "Urheberrechts- oder Eigentumsvermerke zu entfernen",
+          "item4": "Unsere Marken oder Branding ohne Erlaubnis zu verwenden",
+          "item5": "Benutzerdaten aus unserem Dienst zu sammeln"
+        }
+      },
+      "disclaimers": {
+        "title": "Haftungsausschlüsse",
+        "content": "Der Dienst wird 'wie besehen' und 'wie verfügbar' ohne Gewährleistungen jeglicher Art bereitgestellt. Wir garantieren nicht, dass der Dienst ununterbrochen, fehlerfrei oder vollständig sicher sein wird. Wir sind nicht verantwortlich für Verluste oder Schäden, die aus Ihrer Nutzung des Dienstes resultieren."
+      },
+      "limitation": {
+        "title": "Haftungsbeschränkung",
+        "content": "Im gesetzlich zulässigen Rahmen haftet der SRT-zu-Text-Konverter nicht für indirekte, zufällige, besondere, Folgeschäden oder Strafschäden, einschließlich aber nicht beschränkt auf Verlust von Gewinnen, Daten oder Geschäftsmöglichkeiten, die aus Ihrer Nutzung des Dienstes resultieren."
+      },
+      "indemnification": {
+        "title": "Freistellung",
+        "content": "Sie stimmen zu, den SRT-zu-Text-Konverter, seine Direktoren, Mitarbeiter und Agenten von allen Ansprüchen, Schäden, Verlusten, Haftungen und Ausgaben freizustellen, zu verteidigen und schadlos zu halten, die aus Ihrer Nutzung des Dienstes, Verletzung dieser Bedingungen oder Verletzung der Rechte einer anderen Partei resultieren."
+      },
+      "termination": {
+        "title": "Kündigung",
+        "content": "Wir behalten uns das Recht vor, Ihren Zugang zum Dienst sofort ohne vorherige Ankündigung zu beenden oder zu sperren, bei Verletzung dieser Bedingungen oder aus jedem anderen von uns als notwendig erachteten Grund. Bei Kündigung endet Ihr Recht zur Nutzung des Dienstes sofort."
+      },
+      "modifications": {
+        "title": "Änderungen der Bedingungen",
+        "content": "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern. Wir werden Benutzer über wesentliche Änderungen informieren, indem wir die aktualisierten Bedingungen auf dieser Seite mit einem neuen 'Zuletzt aktualisiert'-Datum veröffentlichen. Ihre fortgesetzte Nutzung des Dienstes nach solchen Änderungen stellt die Annahme der geänderten Bedingungen dar."
+      },
+      "governingLaw": {
+        "title": "Geltendes Recht",
+        "content": "Diese Bedingungen unterliegen den Gesetzen der Volksrepublik China und werden in Übereinstimmung mit diesen ausgelegt, ohne Rücksicht auf ihre kollisionsrechtlichen Bestimmungen. Alle Streitigkeiten, die aus diesen Bedingungen resultieren, unterliegen der ausschließlichen Gerichtsbarkeit der Gerichte der Volksrepublik China."
+      },
+      "contact": {
+        "title": "Fragen zu den Bedingungen",
+        "content": "Wenn Sie Fragen zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns bitte unter video2txt@zorezoro.com."
+      }
+    },
+    "refund": {
+      "title": "Rückerstattungsrichtlinie",
+      "content": "Diese Richtlinie gilt für unsere kostenpflichtigen Untertitel-/Textverarbeitungsdienste. Bitte überprüfen Sie sie, bevor Sie einen nutzungsbasierten oder Unternehmensplan aktivieren.",
+      "intro": "Die Rückerstattungsrichtlinie behandelt, wie wir Abrechnungsstreitigkeiten und Rückerstattungsanfragen für Kunden bearbeiten, die für Untertitel-APIs oder verwandte Dienste zahlen.",
+      "lastUpdated": "Zuletzt aktualisiert: Januar 2024",
+      "freeService": {
+        "title": "Abrechnungsübersicht",
+        "content": "Untertitel-APIs werden basierend auf der Nutzung (Anfragen, Dauer und Speicher) abgerechnet. Alle Preise und Zahlungsbedingungen werden in Angeboten, Bestellungen oder Verträgen bestätigt."
+      },
+      "noCharges": {
+        "title": "Zahlungen & Rechnungen",
+        "content": "Kunden müssen gemäß dem vereinbarten Zeitplan zahlen. Wir stellen Rechnungen oder Abrechnungen für jeden Zyklus aus; verspätete Zahlungen können zur Dienstsperrung führen."
+      },
+      "serviceIssues": {
+        "title": "Dienstprobleme & Abhilfemaßnahmen",
+        "content": "Wenn Sie auf Probleme stoßen wie:",
+        "items": {
+          "item1": "Untertitelgenerierungsfehler aufgrund von Plattformproblemen",
+          "item2": "Ergebnisse, die erheblich von der API-Dokumentation abweichen",
+          "item3": "Unfähigkeit, generierte Dateien oder Daten zuzugreifen",
+          "item4": "Andere Fehler, die die normale Nutzung blockieren"
+        },
+        "contact": "Kontaktieren Sie video2txt@zorezoro.com mit Protokollen oder Aufgaben-IDs. Wir können gemäß Ihrer Vereinbarung Neuverarbeitung, Credits oder teilweise Rückerstattungen anbieten."
+      },
+      "futureChanges": {
+        "title": "Planänderungen",
+        "content": "Wenn wir Preise, Kontingente oder Abrechnungszyklen anpassen, werden wir Sie im Voraus benachrichtigen und die Änderungen auf die nächste Abrechnungsperiode anwenden."
+      },
+      "donations": {
+        "title": "Maßgeschneiderte Projekte",
+        "content": "Für einmalige Projekte, On-Premise-Bereitstellungen oder große Unternehmensgeschäfte werden maßgeschneiderte Verträge (einschließlich Rückerstattungsklauseln) bereitgestellt."
+      },
+      "thirdParty": {
+        "title": "Drittanbieter-Kosten",
+        "content": "Wenn der Dienst auf Drittanbieter-APIs oder -Speicher angewiesen ist, können diese Anbieter separat berechnen. Rückerstattungen für Drittanbieter-Gebühren müssen deren Richtlinien folgen."
+      },
+      "satisfaction": {
+        "title": "Kundenzufriedenheit",
+        "content": "Unser Ziel ist es, ein zuverlässiges Erlebnis zu bieten. Wenn etwas nicht stimmt, lassen Sie es uns wissen, damit wir untersuchen und verbessern können."
+      },
+      "disputes": {
+        "title": "Streitbeilegung",
+        "content": "Wenn Sie eine Rechnung oder ein Dienstresultat bestreiten, benachrichtigen Sie uns innerhalb von 30 Tagen unter video2txt@zorezoro.com. Wir werden prompt antworten und auf eine faire Lösung hinarbeiten."
+      },
+      "contact": {
+        "title": "Kontaktieren Sie uns",
+        "content": "Für Abrechnungs- oder Rückerstattungsfragen senden Sie eine E-Mail an video2txt@zorezoro.com."
+      }
+    },
+    "disclaimer": {
+      "title": "Haftungsausschluss",
+      "content": "Dieser Dienst wird wie besehen ohne jegliche Gewährleistungen bereitgestellt. Wir sind nicht verantwortlich für Datenverluste oder Probleme, die während der Dateikonvertierung auftreten können.",
+      "intro": "Dieser Haftungsausschluss enthält wichtige Informationen über Haftungsbeschränkungen und Gewährleistungen bezüglich des SRT-zu-Text-Konverter-Dienstes. Bitte lesen Sie diesen Haftungsausschluss sorgfältig durch, bevor Sie unsere Dienste nutzen.",
+      "lastUpdated": "Zuletzt aktualisiert: Januar 2024",
+      "noWarranties": {
+        "title": "Keine Gewährleistungen",
+        "content": "DER DIENST WIRD 'WIE BESEHEN' UND 'WIE VERFÜGBAR' OHNE JEGLICHE GEWÄHRLEISTUNGEN JEGLICHER ART, WEDER AUSDRÜCKLICH NOCH STILLSCHWEIGEND, EINSCHLIESSLICH ABER NICHT BESCHRÄNKT AUF:",
+        "items": {
+          "item1": "Gewährleistungen der Marktgängigkeit oder Eignung für einen bestimmten Zweck",
+          "item2": "Gewährleistungen, dass der Dienst ununterbrochen, rechtzeitig, sicher oder fehlerfrei sein wird",
+          "item3": "Gewährleistungen bezüglich der Genauigkeit, Zuverlässigkeit oder Qualität des Dienstes",
+          "item4": "Gewährleistungen, dass Mängel behoben werden",
+          "item5": "Gewährleistungen bezüglich der Ergebnisse, die durch die Nutzung des Dienstes erzielt werden"
+        }
+      },
+      "accuracy": {
+        "title": "Genauigkeit der Ergebnisse",
+        "content": "Während wir uns bemühen, genaue Dateikonvertierungsergebnisse zu liefern, garantieren wir nicht, dass:",
+        "items": {
+          "item1": "Die Konvertierung in allen Fällen 100% genau sein wird",
+          "item2": "Alle Dateiformate unterstützt werden",
+          "item3": "Die Ausgabe Ihren spezifischen Anforderungen entspricht",
+          "item4": "Der Dienst alle Grenzfälle oder ungewöhnliche Dateistrukturen behandelt"
+        },
+        "note": "Sie sind verantwortlich für die Überprüfung der Genauigkeit konvertierter Dateien, bevor Sie sie verwenden."
+      },
+      "dataLoss": {
+        "title": "Datenverlust und Dateibeschädigung",
+        "content": "Wir sind nicht verantwortlich für Datenverluste, Dateibeschädigungen oder Schäden, die auftreten können:",
+        "items": {
+          "item1": "Während des Dateikonvertierungsprozesses",
+          "item2": "Aufgrund technischer Ausfälle oder Fehler",
+          "item3": "Als Ergebnis der Nutzung unseres Dienstes",
+          "item4": "Aufgrund von Browser- oder Geräteproblemen"
+        },
+        "recommendation": "Wir empfehlen dringend, dass Sie Sicherungskopien Ihrer Originaldateien erstellen, bevor Sie unseren Konvertierungsdienst verwenden."
+      },
+      "limitation": {
+        "title": "Haftungsbeschränkung",
+        "content": "IM GESETZLICH ZULÄSSIGEN RAHMEN HAFTET DER SRT-ZU-TEXT-KONVERTER NICHT FÜR:",
+        "items": {
+          "item1": "Indirekte, zufällige, besondere, Folgeschäden oder Strafschäden",
+          "item2": "Verlust von Gewinnen, Einnahmen, Daten oder Geschäftsmöglichkeiten",
+          "item3": "Kosten von Ersatzdiensten",
+          "item4": "Schäden, die aus Ihrer Nutzung oder Unfähigkeit zur Nutzung des Dienstes resultieren",
+          "item5": "Schäden, die aus Fehlern, Auslassungen oder Mängeln im Dienst resultieren"
+        },
+        "note": "Diese Beschränkung gilt unabhängig von der Rechtsgrundlage, auf der der Anspruch basiert, einschließlich Vertrag, Delikt, Fahrlässigkeit oder Gefährdungshaftung."
+      },
+      "thirdParty": {
+        "title": "Drittanbieter-Inhalte und Links",
+        "content": "Unsere Website kann Links zu Websites oder Diensten Dritter enthalten. Wir sind nicht verantwortlich für:",
+        "items": {
+          "item1": "Die Inhalte, Genauigkeit oder Meinungen, die auf Websites Dritter geäußert werden",
+          "item2": "Die Datenschutzpraktiken von Websites Dritter",
+          "item3": "Schäden oder Verluste, die aus Ihrer Nutzung von Drittanbieter-Diensten resultieren",
+          "item4": "Die Verfügbarkeit oder Funktionalität von Websites Dritter"
+        }
+      },
+      "technical": {
+        "title": "Technische Probleme",
+        "content": "Wir sind nicht verantwortlich für technische Probleme, die den Dienst beeinträchtigen können, einschließlich aber nicht beschränkt auf:",
+        "items": {
+          "item1": "Server-Ausfallzeiten oder Wartung",
+          "item2": "Internetverbindungsprobleme",
+          "item3": "Browser-Kompatibilitätsprobleme",
+          "item4": "Software-Fehler oder Bugs",
+          "item5": "Sicherheitsverletzungen oder Cyberangriffe"
+        }
+      },
+      "useAtOwnRisk": {
+        "title": "Nutzung auf eigenes Risiko",
+        "content": "Ihre Nutzung des SRT-zu-Text-Konverter-Dienstes erfolgt auf eigenes Risiko. Sie sind allein verantwortlich für:",
+        "items": {
+          "item1": "Sicherstellen, dass Sie das Recht haben, die von Ihnen hochgeladenen Dateien zu konvertieren",
+          "item2": "Sicherung Ihrer Originaldateien vor der Konvertierung",
+          "item3": "Überprüfung der Genauigkeit konvertierter Dateien",
+          "item4": "Einhaltung aller geltenden Gesetze bei der Nutzung unseres Dienstes",
+          "item5": "Schutz Ihres Geräts und Ihrer Daten vor Sicherheitsbedrohungen"
+        }
+      },
+      "jurisdiction": {
+        "title": "Gerichtsbarkeitsbeschränkungen",
+        "content": "Einige Gerichtsbarkeiten erlauben nicht den Ausschluss bestimmter Gewährleistungen oder die Haftungsbeschränkung für bestimmte Arten von Schäden. In solchen Gerichtsbarkeiten ist unsere Haftung auf das gesetzlich zulässige Maximum beschränkt. Die Haftungsausschlüsse und Beschränkungen in diesem Hinweis gelten möglicherweise nicht für Sie, wenn Ihre Gerichtsbarkeit solche Ausschlüsse oder Beschränkungen nicht zulässt."
+      },
+      "changes": {
+        "title": "Änderungen an diesem Haftungsausschluss",
+        "content": "Wir behalten uns das Recht vor, diesen Haftungsausschluss jederzeit zu ändern. Alle Änderungen werden auf dieser Seite mit einem aktualisierten 'Zuletzt aktualisiert'-Datum veröffentlicht. Ihre fortgesetzte Nutzung unseres Dienstes nach solchen Änderungen stellt die Annahme des aktualisierten Haftungsausschlusses dar."
+      },
+      "contact": {
+        "title": "Fragen zu diesem Haftungsausschluss",
+        "content": "Wenn Sie Fragen zu diesem Haftungsausschluss haben, kontaktieren Sie uns bitte unter video2txt@zorezoro.com."
+      }
+    },
+    "copyright": {
+      "title": "Urheberrechtshinweis",
+      "content": "Alle Inhalte auf dieser Website sind durch Urheberrechtsgesetze geschützt. Unbefugte Vervielfältigung oder Verbreitung ist verboten.",
+      "intro": "Dieser Urheberrechtshinweis beschreibt die Urheberrechtseigentümerschaft und Nutzungsrechte für alle Inhalte, Materialien und geistiges Eigentum, die mit der SRT-zu-Text-Konverter-Website und -Dienste verbunden sind.",
+      "ownership": {
+        "title": "Urheberrechtseigentum",
+        "content": "Alle Inhalte auf dieser Website, einschließlich aber nicht beschränkt auf Text, Grafiken, Logos, Symbole, Bilder, Audioclips, digitale Downloads, Datenkompilierungen und Software, sind ausschließliches Eigentum des SRT-zu-Text-Konverters oder seiner Inhaltslieferanten und sind durch internationale Urheberrechtsgesetze, Verträge und Konventionen geschützt. Die Zusammenstellung aller Inhalte auf dieser Website ist ausschließliches Eigentum des SRT-zu-Text-Konverters und ist durch Urheberrechtsgesetze geschützt."
+      },
+      "userContent": {
+        "title": "Benutzergenerierte Inhalte",
+        "content": "Sie behalten alle Eigentumsrechte an Dateien, Daten oder Inhalten, die Sie über unseren Dienst hochladen, einreichen oder übertragen. Wir erheben keinen Anspruch auf Eigentumsrechte an Ihren Inhalten. Durch die Nutzung unseres Dienstes gewähren Sie uns eine begrenzte, nicht ausschließliche, lizenzgebührenfreie Lizenz zur Verarbeitung Ihrer Inhalte ausschließlich zum Zweck der Bereitstellung des Konvertierungsdienstes. Ihre Inhalte werden lokal in Ihrem Browser verarbeitet und niemals auf unseren Servern gespeichert."
+      },
+      "protected": {
+        "title": "Geschützte Materialien",
+        "content": "Die folgenden Materialien sind urheberrechtlich geschützt: Website-Design und -Layout, Quellcode und Software, Dokumentation und Benutzerhandbücher, Markennamen und Logos, Marketingmaterialien und alle Originalinhalte, die vom SRT-zu-Text-Konverter erstellt wurden."
+      },
+      "permissions": {
+        "title": "Berechtigungen und Nutzungsrechte",
+        "content": "Sie dürfen ohne unsere vorherige schriftliche Zustimmung keine Materialien auf unserer Website reproduzieren, verteilen, modifizieren, abgeleitete Werke erstellen, öffentlich anzeigen, öffentlich aufführen, erneut veröffentlichen, herunterladen, speichern oder übertragen. Sie können jedoch eine Kopie einer angemessenen Menge von Materialien von unserer Website für Ihren persönlichen, nicht kommerziellen Gebrauch drucken oder herunterladen, vorausgesetzt, Sie modifizieren die Materialien nicht und behalten alle Urheberrechts- und anderen Eigentumsvermerke bei."
+      },
+      "violations": {
+        "title": "Urheberrechtsverletzungen",
+        "content": "Wenn Sie glauben, dass Inhalte auf unserer Website Ihr Urheberrecht verletzen, kontaktieren Sie uns bitte sofort unter video2txt@zorezoro.com mit folgenden Informationen: eine Beschreibung des urheberrechtlich geschützten Werks, den Standort des verletzenden Materials, Ihre Kontaktinformationen und eine Erklärung des guten Glaubens, dass die Nutzung nicht autorisiert ist."
+      },
+      "enforcement": {
+        "title": "Durchsetzung",
+        "content": "Wir nehmen Urheberrechtsverletzungen ernst und werden angemessene rechtliche Schritte gegen jede unbefugte Nutzung unserer urheberrechtlich geschützten Materialien einleiten. Verletzer können zivil- und strafrechtlichen Sanktionen nach geltenden Urheberrechtsgesetzen unterliegen."
+      },
+      "updates": {
+        "title": "Aktualisierungen dieses Hinweises",
+        "content": "Wir behalten uns das Recht vor, diesen Urheberrechtshinweis jederzeit zu aktualisieren. Alle Änderungen werden auf dieser Seite mit einem aktualisierten Revisionsdatum veröffentlicht. Ihre fortgesetzte Nutzung unseres Dienstes nach solchen Änderungen stellt Ihre Annahme des aktualisierten Hinweises dar."
+      },
+      "contact": {
+        "title": "Urheberrechtsanfragen",
+        "content": "Für Fragen zum Urheberrecht oder Anfragen zur Erlaubnis zur Nutzung unserer Materialien kontaktieren Sie uns bitte unter video2txt@zorezoro.com."
+      }
+    },
+    "legal": {
+      "title": "Rechtlicher Hinweis",
+      "content": "Diese Website und ihre Dienste werden in Übereinstimmung mit geltenden Gesetzen und Vorschriften bereitgestellt.",
+      "intro": "Dieser rechtliche Hinweis enthält wichtige Informationen zu den rechtlichen Bedingungen, die Ihre Nutzung der SRT-zu-Text-Konverter-Website und -Dienste regeln. Bitte lesen Sie diesen Hinweis sorgfältig durch, bevor Sie unsere Dienste nutzen.",
+      "jurisdiction": {
+        "title": "Gerichtsbarkeit und geltendes Recht",
+        "content": "Diese Website wird von der Volksrepublik China aus betrieben. Diese Bedingungen werden nach den Gesetzen der Volksrepublik China geregelt und ausgelegt. Alle Streitigkeiten, die aus diesen Bedingungen oder Ihrer Nutzung dieser Website entstehen oder damit zusammenhängen, unterliegen der ausschließlichen Gerichtsbarkeit der Gerichte der Volksrepublik China."
+      },
+      "compliance": {
+        "title": "Rechtliche Compliance",
+        "content": "Wir arbeiten in strikter Übereinstimmung mit allen geltenden lokalen, nationalen und internationalen Gesetzen und Vorschriften, einschließlich aber nicht beschränkt auf Datenschutzgesetze, Datenschutzbestimmungen, Gesetze zum geistigen Eigentum und Verbraucherschutzstatuten. Wir sind verpflichtet, die höchsten Standards der rechtlichen Compliance in allen unseren Operationen aufrechtzuerhalten."
+      },
+      "dataProtection": {
+        "title": "Datenschutz und Privatsphäre",
+        "content": "Wir sind verpflichtet, Ihre Privatsphäre und persönlichen Daten in Übereinstimmung mit geltenden Datenschutzgesetzen zu schützen. Alle Dateikonvertierungen werden lokal in Ihrem Browser durchgeführt, wodurch sichergestellt wird, dass Ihre Daten Ihr Gerät niemals verlassen. Wir sammeln, speichern oder verarbeiten keine persönlichen Informationen ohne Ihre ausdrückliche Zustimmung. Weitere Details finden Sie in unserer Datenschutzrichtlinie."
+      },
+      "liability": {
+        "title": "Haftungsbeschränkung",
+        "content": "Im gesetzlich zulässigen Rahmen haftet der SRT-zu-Text-Konverter nicht für indirekte, zufällige, besondere, Folgeschäden oder Strafschäden, einschließlich aber nicht beschränkt auf Verlust von Gewinnen, Daten oder Geschäftsmöglichkeiten, die aus Ihrer Nutzung oder Unfähigkeit zur Nutzung unserer Dienste resultieren, auch wenn wir auf die Möglichkeit solcher Schäden hingewiesen wurden."
+      },
+      "warranties": {
+        "title": "Keine Gewährleistungen",
+        "content": "Unsere Dienste werden 'wie besehen' und 'wie verfügbar' ohne jegliche Gewährleistungen, weder ausdrücklich noch stillschweigend, bereitgestellt, einschließlich aber nicht beschränkt auf Gewährleistungen der Marktgängigkeit, Eignung für einen bestimmten Zweck oder Nichtverletzung. Wir gewährleisten nicht, dass unsere Dienste ununterbrochen, fehlerfrei oder vollständig sicher sein werden."
+      },
+      "indemnification": {
+        "title": "Freistellung",
+        "content": "Sie stimmen zu, den SRT-zu-Text-Konverter, seine Direktoren, Mitarbeiter und Agenten von allen Ansprüchen, Haftungen, Schäden, Verlusten, Kosten oder Ausgaben freizustellen, zu verteidigen und schadlos zu halten, die aus Ihrer Nutzung unserer Dienste, Verletzung dieser Bedingungen oder Verletzung der Rechte einer anderen Partei resultieren."
+      },
+      "modifications": {
+        "title": "Änderungen an Diensten",
+        "content": "Wir behalten uns das Recht vor, jeden Aspekt unserer Dienste jederzeit mit oder ohne Vorankündigung zu ändern, auszusetzen oder einzustellen. Wir haften nicht Ihnen oder Dritten gegenüber für Änderungen, Aussetzungen oder Einstellungen unserer Dienste."
+      },
+      "severability": {
+        "title": "Trennbarkeit",
+        "content": "Wenn eine Bestimmung dieses rechtlichen Hinweises als ungültig, illegal oder nicht durchsetzbar befunden wird, bleiben die übrigen Bestimmungen in vollem Umfang in Kraft. Die ungültige Bestimmung wird durch eine gültige Bestimmung ersetzt, die der Absicht der ursprünglichen Bestimmung am nächsten kommt."
+      },
+      "contact": {
+        "title": "Rechtliche Anfragen",
+        "content": "Für rechtliche Anfragen oder Bedenken bezüglich dieses Hinweises kontaktieren Sie uns bitte unter video2txt@zorezoro.com. Wir werden auf alle rechtlichen Anfragen innerhalb eines angemessenen Zeitrahmens antworten."
+      }
+    },
+    "ip": {
+      "title": "Geistiges Eigentum",
+      "content": "Alle Rechte des geistigen Eigentums im Zusammenhang mit dieser Website und ihren Diensten sind vorbehalten.",
+      "intro": "Dieser Hinweis zum geistigen Eigentum bietet umfassende Informationen über die Rechte des geistigen Eigentums, die mit der SRT-zu-Text-Konverter-Website, -Diensten und verwandten Materialien verbunden sind. Alle Rechte des geistigen Eigentums sind streng geschützt und vorbehalten.",
+      "scope": {
+        "title": "Umfang der Rechte des geistigen Eigentums",
+        "content": "Rechte des geistigen Eigentums umfassen, sind aber nicht beschränkt auf, Urheberrechte, Marken, Dienstleistungsmarken, Handelsnamen, Geschäftsgeheimnisse, Patente, Designs, Domainnamen und alle anderen Formen des Schutzes geistigen Eigentums. Alle diese Rechte an und zu unserer Website, Diensten, Software, Inhalten und Materialien sind Eigentum des SRT-zu-Text-Konverters oder seiner Lizenzgeber."
+      },
+      "copyrights": {
+        "title": "Urheberrechte",
+        "content": "Alle Originalinhalte, einschließlich Text, Grafiken, Logos, Symbole, Bilder, Audio, Video, Softwarecode, Dokumentation und Datenkompilierungen, sind durch Urheberrechtsgesetze geschützt. Das Urheberrecht an allen solchen Materialien ist Eigentum des SRT-zu-Text-Konverters oder seiner Inhaltslieferanten. Unbefugte Vervielfältigung, Verbreitung oder Modifikation urheberrechtlich geschützter Materialien ist strengstens verboten und kann zu zivil- und strafrechtlichen Sanktionen führen."
+      },
+      "trademarks": {
+        "title": "Marken und Dienstleistungsmarken",
+        "content": "Der Name 'SRT-zu-Text-Konverter', unser Logo und alle verwandten Marken, Dienstleistungsmarken und Handelsnamen sind ausschließliches Eigentum des SRT-zu-Text-Konverters. Alle anderen auf dieser Website verwendeten Marken, Dienstleistungsmarken und Handelsnamen sind Eigentum ihrer jeweiligen Eigentümer. Die Verwendung unserer Marken ohne unsere vorherige schriftliche Zustimmung ist strengstens verboten."
+      },
+      "patents": {
+        "title": "Patente und Geschäftsgeheimnisse",
+        "content": "Bestimmte Technologien, Algorithmen und Prozesse, die in unseren Diensten verwendet werden, können durch Patente geschützt sein oder Geschäftsgeheimnisse darstellen. Diese Vermögenswerte des geistigen Eigentums sind wertvoll und werden im gesetzlich zulässigen Rahmen geschützt. Unbefugte Nutzung, Reverse Engineering oder Offenlegung solcher geschützten Informationen ist strengstens verboten."
+      },
+      "software": {
+        "title": "Software und Quellcode",
+        "content": "Alle Software, Quellcode, Algorithmen und technischen Implementierungen, die in unseren Diensten verwendet werden, sind proprietär und durch Gesetze zum geistigen Eigentum geschützt. Die Software wird nur zur Nutzung gemäß unseren Nutzungsbedingungen bereitgestellt. Sie dürfen unsere Software ohne unsere ausdrückliche schriftliche Genehmigung nicht kopieren, modifizieren, verteilen, verkaufen oder abgeleitete Werke erstellen."
+      },
+      "userRights": {
+        "title": "Benutzerrechte und -verantwortlichkeiten",
+        "content": "Während Sie das Eigentum an Inhalten behalten, die Sie hochladen, gewähren Sie uns eine begrenzte Lizenz zur Verarbeitung solcher Inhalte für die Dienstbereitstellung. Sie sind verantwortlich dafür, sicherzustellen, dass alle von Ihnen hochgeladenen Inhalte die Rechte des geistigen Eigentums Dritter nicht verletzen. Sie stimmen zu, unsere Dienste nicht zur Verletzung von Rechten des geistigen Eigentums zu verwenden."
+      },
+      "prohibited": {
+        "title": "Verbotene Aktivitäten",
+        "content": "Die folgenden Aktivitäten sind strengstens verboten: Kopieren, Reproduzieren oder Verteilen geschützter Materialien ohne Autorisierung; Reverse Engineering oder Dekompilieren unserer Software; Verwendung unserer Marken oder Logos ohne Erlaubnis; Entfernen oder Ändern von Urheberrechtshinweisen oder Eigentumsmarkierungen; Erstellen abgeleiteter Werke basierend auf unserem geistigen Eigentum ohne Autorisierung."
+      },
+      "enforcement": {
+        "title": "Durchsetzung und Abhilfemaßnahmen",
+        "content": "Wir überwachen aktiv Verletzungen des geistigen Eigentums und werden angemessene rechtliche Schritte gegen jede unbefugte Nutzung unseres geistigen Eigentums einleiten. Abhilfemaßnahmen können einstweilige Verfügungen, Geldstrafen und Erstattung von Rechtskosten umfassen. Wir kooperieren mit Strafverfolgungsbehörden und Regulierungsbehörden bei der Durchsetzung von Rechten des geistigen Eigentums."
+      },
+      "licensing": {
+        "title": "Lizenzierung und Berechtigungen",
+        "content": "Wenn Sie eines unseres geistigen Eigentums nutzen möchten, müssen Sie unsere vorherige schriftliche Zustimmung einholen. Lizenzierungsanfragen sollten an video2txt@zorezoro.com mit detaillierten Informationen über die beabsichtigte Nutzung, Dauer und den Umfang der angefragten Lizenz gesendet werden. Wir behalten uns das Recht vor, solche Anfragen nach unserem alleinigen Ermessen zu gewähren oder abzulehnen."
+      },
+      "thirdParty": {
+        "title": "Geistiges Eigentum Dritter",
+        "content": "Wir respektieren die Rechte des geistigen Eigentums anderer. Wenn Sie glauben, dass Inhalte auf unserer Website Ihre Rechte des geistigen Eigentums verletzen, kontaktieren Sie uns bitte sofort unter video2txt@zorezoro.com mit detaillierten Informationen über die mutmaßliche Verletzung. Wir werden alle Ansprüche untersuchen und angemessene Maßnahmen ergreifen."
+      },
+      "updates": {
+        "title": "Aktualisierungen dieses Hinweises",
+        "content": "Wir behalten uns das Recht vor, diesen Hinweis zum geistigen Eigentum jederzeit zu aktualisieren, um Änderungen in unserem Portfolio des geistigen Eigentums oder geltenden Gesetzen widerzuspiegeln. Alle Aktualisierungen werden auf dieser Seite mit einem aktualisierten Revisionsdatum veröffentlicht. Ihre fortgesetzte Nutzung unserer Dienste nach solchen Aktualisierungen stellt die Annahme des überarbeiteten Hinweises dar."
+      },
+      "contact": {
+        "title": "Anfragen zum geistigen Eigentum",
+        "content": "Für Fragen zu Rechten des geistigen Eigentums, Lizenzierungsanfragen oder Verletzungsansprüchen kontaktieren Sie uns bitte unter video2txt@zorezoro.com. Wir werden auf alle Anfragen zeitnah antworten."
+      }
+    }
+  },
+  "subscription": {
+    "title": "Abonnementpläne",
+    "subtitle": "Wählen Sie einen Plan, der Ihren Bedürfnissen entspricht, und erhalten Sie mehr Credits für die Videoverarbeitung",
+    "loading": "Lädt...",
+    "loginPrompt": "Melden Sie sich an, um Ihren Abonnementstatus anzuzeigen und Pläne zu kaufen.",
+    "loginHere": "Klicken Sie hier, um sich anzumelden",
+    "loginToSubscribe": "Anmelden zum Abonnieren",
+    "currentStatus": "Aktueller Status",
+    "credits": "Credits",
+    "freeTrial": "Kostenlose Testversion",
+    "used": "Verwendet",
+    "available": "Verfügbar",
+    "expiresAt": "Läuft ab am",
+    "month": "Monat",
+    "creditsPerMonth": "Credits/Monat",
+    "creditUsage": "1 Minute Video = 1 Credit, weniger als 1 Minute zählt als 1 Minute",
+    "autoRenewal": "Automatische Verlängerung",
+    "subscribe": "Abonnieren",
+    "pricingInfo": "Preisinformationen",
+    "pricingRule1": "$1 = 3 Credits, 1 Minute Video = 1 Credit",
+    "pricingRule2": "Nicht abonnierte Benutzer erhalten eine kostenlose Testversion (max. 1 Minute Video)",
+    "pricingRule3": "Credits werden monatlich nach dem Abonnement ausgegeben und können angesammelt werden",
+    "paymentNotImplemented": "Zahlungsfunktion noch nicht implementiert. Plan: {plan}, Preis: ${price}/Monat",
+    "paymentError": "Zahlungsverarbeitung fehlgeschlagen, bitte versuchen Sie es später erneut",
+    "loginRequired": "Bitte melden Sie sich zuerst an"
+  },
+  "orders": {
+    "title": "Meine Bestellungen",
+    "subtitle": "Zeigen Sie Ihren aktuellen Abonnementplan und die Credit-Nutzung an",
+    "loading": "Lädt...",
+    "loginRequired": "Sie müssen sich anmelden, um Ihre Bestellungen anzuzeigen.",
+    "goLogin": "Zur Anmeldung",
+    "accountInfo": "Kontoinformationen",
+    "emailLabel": "E-Mail: {email}",
+    "orderInfo": "Abonnementdetails",
+    "ordersEmpty": "Noch keine Abonnementaufzeichnungen.",
+    "currentPlan": "Aktueller Abonnementplan",
+    "planId": "Plan-ID: {plan}",
+    "noPlan": "Kein aktiver Abonnementplan ausgewählt",
+    "credits": "Aktuelle Credits",
+    "freeTrial": "Status der kostenlosen Testversion",
+    "freeTrialUsed": "Kostenlose Testversion bereits verwendet",
+    "freeTrialAvailable": "Kostenlose Testversion noch nicht verwendet",
+    "expiresAt": "Ablaufdatum",
+    "noExpire": "Kein Ablaufdatum (Plan nicht aktiviert)",
+    "goSubscriptionPrefix": "Um einen Plan zu kaufen oder zu ändern, gehen Sie bitte zur",
+    "goSubscription": "Abonnementseite",
+    "orderHistory": "Bestellhistorie",
+    "noOrderHistory": "Noch keine Bestellaufzeichnungen.",
+    "price": "Preis",
+    "orderDate": "Bestelldatum",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum",
+    "paymentReference": "Zahlungsreferenz",
+    "status": {
+      "completed": "Abgeschlossen",
+      "pending": "Ausstehend",
+      "failed": "Fehlgeschlagen",
+      "cancelled": "Storniert"
+    }
+  },
+  "videoJobs": {
+    "title": "Meine Konvertierungshistorie",
+    "subtitle": "Zeigen Sie Ihre Video-zu-Untertitel-Konvertierungshistorie an",
+    "loading": "Lädt...",
+    "loginRequired": "Sie müssen sich anmelden, um Ihre Konvertierungshistorie anzuzeigen.",
+    "goLogin": "Zur Anmeldung",
+    "noJobs": "Sie haben noch keine Konvertierungsaufzeichnungen.",
+    "goToHome": "Zur Startseite",
+    "unknownVideo": "Unbekanntes Video",
+    "duration": "Dauer",
+    "createdAt": "Erstellt am",
+    "taskId": "Aufgaben-ID",
+    "error": "Fehler",
+    "downloadSubtitle": "Untertitel herunterladen",
+    "viewVideo": "Video anzeigen",
+    "status": {
+      "success": "Erfolg",
+      "failed": "Fehlgeschlagen",
+      "processing": "Verarbeitung"
+    }
+  }
+}

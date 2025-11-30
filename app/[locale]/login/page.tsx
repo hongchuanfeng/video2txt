@@ -107,18 +107,20 @@ export default function LoginPage() {
             </div>
           )}
 
-          <button
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-            className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-primary-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-primary-300"
-          >
-            {loading ? t('googleButtonLoading') : t('googleButton')}
-          </button>
+          {!userEmail && (
+            <button
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-primary-600 px-6 py-3 text-base font-semibold text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-primary-300"
+            >
+              {loading ? t('googleButtonLoading') : t('googleButton')}
+            </button>
+          )}
 
           {userEmail && (
             <button
               onClick={handleSignOut}
-              className="mt-4 inline-flex w-full items-center justify-center rounded-xl border border-gray-200 px-6 py-3 text-base font-semibold text-gray-700 transition hover:bg-gray-50"
+              className="mt-8 inline-flex w-full items-center justify-center rounded-xl border border-gray-200 px-6 py-3 text-base font-semibold text-gray-700 transition hover:bg-gray-50"
             >
               {t('logout')}
             </button>

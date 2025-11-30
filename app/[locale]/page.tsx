@@ -61,7 +61,15 @@ export default function HomePage() {
 
             if (response.ok) {
               const data = await response.json();
-              setSubscription(data);
+              console.log('Home page - Subscription data received:', data);
+              // Ensure credits is a number and handle data format
+              setSubscription({
+                userId: data.userId || data.user_id,
+                credits: data.credits != null ? Number(data.credits) : 0,
+                freeTrialUsed: data.freeTrialUsed ?? data.free_trial_used ?? false,
+                subscriptionPlanId: data.subscriptionPlanId ?? data.subscription_plan_id ?? null,
+                subscriptionExpiresAt: data.subscriptionExpiresAt ?? data.subscription_expires_at ?? null,
+              });
             }
           }
         } catch (error) {
@@ -85,7 +93,15 @@ export default function HomePage() {
 
           if (response.ok) {
             const data = await response.json();
-            setSubscription(data);
+            console.log('Home page - Subscription data received (auth change):', data);
+            // Ensure credits is a number and handle data format
+            setSubscription({
+              userId: data.userId || data.user_id,
+              credits: data.credits != null ? Number(data.credits) : 0,
+              freeTrialUsed: data.freeTrialUsed ?? data.free_trial_used ?? false,
+              subscriptionPlanId: data.subscriptionPlanId ?? data.subscription_plan_id ?? null,
+              subscriptionExpiresAt: data.subscriptionExpiresAt ?? data.subscription_expires_at ?? null,
+            });
           }
         } catch (error) {
           console.error('Error fetching subscription:', error);
