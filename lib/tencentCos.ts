@@ -21,6 +21,11 @@ function getCosClient(config: TencentSmartSubtitleConfig) {
   return cachedCosClient;
 }
 
+// 供服务端签名使用的 COS 客户端获取方法
+export function getCosClientForSigning(config: TencentSmartSubtitleConfig) {
+  return getCosClient(config);
+}
+
 export async function uploadVideoToCos(
   config: TencentSmartSubtitleConfig,
   { buffer, filename, contentType, contentLength }: UploadOptions
@@ -56,6 +61,13 @@ export async function uploadVideoToCos(
   });
 
   return { objectKey };
+}
+
+export function buildCosObjectKey(config: TencentSmartSubtitleConfig, filename?: string): string {
+  const safeName = sanitizeFilename(filename);
+  const uniqueKey = `${Date.now()}-${crypto.randomUUID()}-${safeName}`;
+  const objectKey = `${config.uploadDir}${uniqueKey}`;
+  return objectKey.replace(/^\//, '');
 }
 
 function sanitizeFilename(name?: string): string {

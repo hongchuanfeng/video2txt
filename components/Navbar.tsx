@@ -101,6 +101,21 @@ export default function Navbar() {
     };
 
     fetchSubscription();
+
+    // 监听全局订阅更新事件（例如字幕转换成功后触发），刷新 Navbar 积分显示
+    const handleSubscriptionUpdated = () => {
+      fetchSubscription();
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('subscriptionUpdated', handleSubscriptionUpdated);
+    }
+
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('subscriptionUpdated', handleSubscriptionUpdated);
+      }
+    };
   }, [user]);
 
   const changeLanguage = (newLocale: string) => {

@@ -11,6 +11,10 @@ import { SUBSCRIPTION_PLANS } from '@/lib/subscription';
 
 export const dynamic = 'force-dynamic';
 
+// 前端上传到腾讯 COS 的体积上限（仅用于保护浏览器内存和带宽）
+// 因为不再经过自有后端，所以可以支持到数百 MB，这里限制为 500MB
+const MAX_UPLOAD_SIZE_BYTES = 500 * 1024 * 1024; // 500MB
+
 type TencentSubtitleApiResponse = {
   taskId: string;
   segmentCount: number;
@@ -57,6 +61,8 @@ export default function HomePage() {
               headers: {
                 Authorization: `Bearer ${session.access_token}`,
               },
+              // 避免拿到旧缓存数据
+              cache: 'no-store',
             });
 
             if (response.ok) {
@@ -89,6 +95,7 @@ export default function HomePage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            cache: 'no-store',
           });
 
           if (response.ok) {
@@ -197,6 +204,13 @@ export default function HomePage() {
       return;
     }
 
+    // 前端限制上传文件大小，避免浏览器内存和网络占用过大
+    if (videoFile.size > MAX_UPLOAD_SIZE_BYTES) {
+      const maxMb = Math.round(MAX_UPLOAD_SIZE_BYTES / (1024 * 1024));
+      setError(`视频文件过大，当前仅支持 ${maxMb}MB 以内的视频。请压缩视频或截取较短片段后重试。`);
+      return;
+    }
+
     // Check if user is logged in - if not, redirect to login page
     if (!user) {
       router.push(`/${locale}/login`);
@@ -233,12 +247,6 @@ export default function HomePage() {
       }
     }
 
-    const formData = new FormData();
-    formData.append('file', videoFile);
-    if (videoDuration > 0) {
-      formData.append('durationSeconds', videoDuration.toString());
-    }
-
     setProcessing(true);
     setError(null);
     setTencentResult(null);
@@ -250,19 +258,83 @@ export default function HomePage() {
         router.push(`/${locale}/login`);
         return;
       }
-      
-      const response = await fetch('/api/tencent-smart-subtitle', {
+      const accessToken = session.access_token;
+
+      // 1) 从后端获取 COS 预签名上传地址
+      const uploadMetaRes = await fetch('/api/tencent-cos/upload-url', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: formData
+        body: JSON.stringify({
+          fileName: videoFile.name,
+          fileType: videoFile.type,
+          fileSize: videoFile.size,
+        }),
       });
 
-      const data = await response.json();
+      if (!uploadMetaRes.ok) {
+        const metaErr = await uploadMetaRes.json().catch(() => ({}));
+        throw new Error(metaErr?.error || '获取上传地址失败，请稍后重试。');
+      }
 
-      if (!response.ok) {
-        throw new Error(data?.error || t('tencentSubtitle.genericError'));
+      const { uploadUrl, videoUrl, objectKey } = await uploadMetaRes.json();
+
+      if (!uploadUrl || !objectKey) {
+        throw new Error('上传地址无效，请稍后重试。');
+      }
+
+      // 2) 前端直接上传视频文件到腾讯 COS（PUT 请求）
+      const cosUploadRes = await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': videoFile.type || 'application/octet-stream',
+        },
+        body: videoFile,
+      });
+
+      if (!cosUploadRes.ok) {
+        let extra = '';
+        try {
+          const text = await cosUploadRes.text();
+          if (text) {
+            console.error('COS upload failed:', cosUploadRes.status, text);
+            extra = ` 详细错误: ${text.slice(0, 300)}`;
+          }
+        } catch {
+          // ignore
+        }
+        throw new Error('上传视频到存储失败，请检查网络或存储桶配置后重试。' + extra);
+      }
+
+      // 3) 通知后端开始处理智能字幕（传 COS 对象 Key、时长和原始文件名）
+      const subtitleResponse = await fetch('/api/tencent-smart-subtitle', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          objectKey,
+          durationSeconds: videoDuration,
+          fileName: videoFile.name,
+        }),
+      });
+
+      let data: any = null;
+      try {
+        data = await subtitleResponse.json();
+      } catch {
+        // 如果不是 JSON（例如平台返回的纯文本错误），使用通用错误提示
+      }
+
+      if (!subtitleResponse.ok) {
+        const msg =
+          data?.error ||
+          data?.message ||
+          t('tencentSubtitle.genericError');
+        throw new Error(msg);
       }
 
       setTencentResult(data as TencentSubtitleApiResponse);
@@ -274,10 +346,15 @@ export default function HomePage() {
           headers: {
             Authorization: `Bearer ${refreshSession.access_token}`,
           },
+          cache: 'no-store',
         });
         if (subResponse.ok) {
           const subData = await subResponse.json();
           setSubscription(subData);
+          // 通知全局（例如 Navbar）订阅信息已更新
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new CustomEvent('subscriptionUpdated'));
+          }
         }
       }
     } catch (err: any) {

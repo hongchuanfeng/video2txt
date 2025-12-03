@@ -11,7 +11,7 @@ import {
 } from '@/lib/tencentSmartSubtitle';
 import { uploadVideoToCos } from '@/lib/tencentCos';
 import { createClient } from '@supabase/supabase-js';
-import { canUseVideoToSubtitle, deductCredits } from '@/lib/subscription';
+import { canUseVideoToSubtitle, deductCredits, getUserSubscription } from '@/lib/subscription';
 import { getVideoDuration } from '@/lib/videoUtils';
 
 const MAX_VIDEO_SIZE = 1024 * 1024 * 1024; // 1GB
@@ -119,23 +119,39 @@ export async function POST(request: NextRequest) {
       videoUrlForDb = buildPublicUrl(config, objectKey) || '';
     } else if (contentType.includes('application/json')) {
       const body = await request.json().catch(() => ({}));
+      const rawDuration = body?.durationSeconds ?? body?.duration ?? '0';
+      videoDurationSeconds = parseFloat(String(rawDuration));
+
+      const objectKey = (body?.objectKey ?? '').trim();
       const videoUrl = (body?.videoUrl ?? '').trim();
-      videoDurationSeconds = parseFloat(body.durationSeconds || '0');
-      videoUrlForDb = videoUrl;
+      const bodyFileName = (body?.fileName ?? body?.videoName ?? '').toString().trim();
 
-      if (!videoUrl) {
-        return NextResponse.json({ error: '请提供视频 URL。' }, { status: 400 });
-      }
-
-      if (!/^https?:\/\//i.test(videoUrl)) {
-        return NextResponse.json({ error: '视频 URL 必须以 http 或 https 开头。' }, { status: 400 });
+      // 从前端直接获取原始文件名，用于写入转换记录表
+      if (bodyFileName) {
+        videoName = bodyFileName;
       }
 
       if (videoDurationSeconds <= 0) {
         return NextResponse.json({ error: '请提供有效的视频时长。' }, { status: 400 });
       }
 
-      jobInput = { mode: 'url', value: videoUrl };
+      // 优先使用 COS 对象 Key（前端已上传到 COS，走 COS 模式即可，不需要公网访问权限）
+      if (objectKey) {
+        jobInput = { mode: 'cos', objectKey };
+        videoUrlForDb = buildPublicUrl(config, objectKey) || '';
+      } else {
+        // 兼容旧的 URL 模式
+        if (!videoUrl) {
+          return NextResponse.json({ error: '请提供视频 URL。' }, { status: 400 });
+        }
+
+        if (!/^https?:\/\//i.test(videoUrl)) {
+          return NextResponse.json({ error: '视频 URL 必须以 http 或 https 开头。' }, { status: 400 });
+        }
+
+        jobInput = { mode: 'url', value: videoUrl };
+        videoUrlForDb = videoUrl;
+      }
     } else {
       return NextResponse.json({ error: '不支持的请求类型，请使用 multipart/form-data 或 JSON。' }, { status: 400 });
     }
@@ -145,7 +161,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user can process this video and deduct credits before processing
+    console.log('API /api/tencent-smart-subtitle - Before canUseVideoToSubtitle:', {
+      userId: user.id,
+      videoDurationSeconds
+    });
     const checkResult = await canUseVideoToSubtitle(user.id, videoDurationSeconds);
+    console.log('API /api/tencent-smart-subtitle - canUseVideoToSubtitle result:', checkResult);
     if (!checkResult.allowed) {
       return NextResponse.json({ error: checkResult.reason || '无法处理此视频' }, { status: 403 });
     }
@@ -153,7 +174,16 @@ export async function POST(request: NextRequest) {
     const videoDurationMinutes = Math.ceil(videoDurationSeconds / 60);
     const useFreeTrial = checkResult.useFreeTrial || false;
     
+    console.log('API /api/tencent-smart-subtitle - Before deductCredits:', {
+      userId: user.id,
+      videoDurationSeconds,
+      videoDurationMinutes,
+      useFreeTrial
+    });
     const deducted = await deductCredits(user.id, videoDurationMinutes, useFreeTrial);
+    console.log('API /api/tencent-smart-subtitle - deductCredits result:', {
+      deducted
+    });
     if (!deducted) {
       return NextResponse.json({ error: '扣除积分失败，请重试' }, { status: 500 });
     }
@@ -194,6 +224,14 @@ export async function POST(request: NextRequest) {
         console.error('Error saving video job to database:', dbError);
         // Don't fail the request if DB save fails
       }
+    }
+
+    // Log subscription after deduction to confirm credits change
+    try {
+      const subAfter = await getUserSubscription(user.id);
+      console.log('API /api/tencent-smart-subtitle - Subscription after deduction:', subAfter);
+    } catch (logError) {
+      console.error('Error logging subscription after deduction:', logError);
     }
 
     return NextResponse.json({
