@@ -50,7 +50,8 @@
       "taskId": "Task ID: {taskId}",
       "segmentCount": "Segments: {count}",
       "genericError": "API request failed. Please retry later.",
-      "idle": "Subtitle preview will appear here once processing finishes."
+      "idle": "Subtitle preview will appear here once processing finishes.",
+      "processingNotice": "Video to subtitle conversion may take some time. Please wait patiently and do not refresh the page."
     },
     "loginRequiredNotice": "Login required to use video to subtitle feature.",
     "loginHere": "Click here to login",

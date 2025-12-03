@@ -63,7 +63,7 @@ export default function Navbar() {
         }
 
         try {
-          const res = await fetch('/api/user/subscription', {
+          const res = await fetch(`/api/user/subscription?t=${Date.now()}`, {
             headers: {
               Authorization: `Bearer ${session.access_token}`,
             },
@@ -204,7 +204,11 @@ export default function Navbar() {
                   </svg>
                 </button>
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div
+                    className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                    // 鼠标移出下拉框区域时才关闭，下拉框内部移动不会消失
+                    onMouseLeave={() => setIsUserMenuOpen(false)}
+                  >
                     <div className="px-4 py-2 text-xs text-gray-500 border-b border-gray-100">
                       {t('loggedInAs', { email: user.email || '' })}
                     </div>
@@ -266,7 +270,11 @@ export default function Navbar() {
                 </svg>
               </button>
               {isLangOpen && (
-                <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                <div
+                  className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-2"
+                  // 鼠标移出多语言下拉框区域时关闭，下拉框内部移动不会消失
+                  onMouseLeave={() => setIsLangOpen(false)}
+                >
                   <button
                     onClick={() => changeLanguage('en')}
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100 transition-colors"

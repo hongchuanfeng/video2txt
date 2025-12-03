@@ -45,6 +45,7 @@
       "selectedFile": "Ausgewählt: {name}",
       "submit": "Untertitel generieren",
       "processing": "Verarbeitung über die Untertitel-API...",
+      "processingNotice": "Die Umwandlung des Videos in Untertitel kann etwas Zeit dauern. Bitte haben Sie etwas Geduld und aktualisieren Sie die Seite nicht.",
       "download": "Generierte SRT herunterladen",
       "resultTitle": "Untertitel-Vorschau",
       "taskId": "Aufgaben-ID: {taskId}",

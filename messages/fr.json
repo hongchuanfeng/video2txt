@@ -45,6 +45,7 @@
       "selectedFile": "Sélectionné : {name}",
       "submit": "Générer les sous-titres",
       "processing": "Traitement via l'API de sous-titres...",
+      "processingNotice": "La conversion de la vidéo en sous-titres peut prendre un certain temps. Merci de patienter et de ne pas actualiser la page.",
       "download": "Télécharger le SRT généré",
       "resultTitle": "Aperçu des sous-titres",
       "taskId": "ID de tâche : {taskId}",

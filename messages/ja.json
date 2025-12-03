@@ -45,6 +45,7 @@
       "selectedFile": "選択済み: {name}",
       "submit": "字幕を生成",
       "processing": "字幕API経由で処理中...",
+      "processingNotice": "動画を字幕に変換するには少し時間がかかります。ページを更新せず、そのままお待ちください。",
       "download": "生成されたSRTをダウンロード",
       "resultTitle": "字幕プレビュー",
       "taskId": "タスクID: {taskId}",

@@ -50,8 +50,8 @@ export default function OrdersPage() {
         try {
           const token = (await supabase.auth.getSession()).data.session?.access_token;
           
-          // Fetch subscription summary
-          const subscriptionResponse = await fetch('/api/user/subscription', {
+          // Fetch subscription summary（带时间戳避免缓存）
+          const subscriptionResponse = await fetch(`/api/user/subscription?t=${Date.now()}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -92,8 +92,8 @@ export default function OrdersPage() {
             console.error('Orders page - Error details:', errorData);
           }
 
-          // Fetch subscription orders history
-          const ordersResponse = await fetch('/api/user/subscription-orders', {
+          // Fetch subscription orders history（带时间戳避免缓存）
+          const ordersResponse = await fetch(`/api/user/subscription-orders?t=${Date.now()}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

@@ -38,7 +38,8 @@ export default function VideoJobsPage() {
       if (user) {
         try {
           const token = (await supabase.auth.getSession()).data.session?.access_token;
-          const response = await fetch('/api/user/video-jobs', {
+          // 在接口后面追加时间戳，进一步避免某些代理/中间层缓存
+          const response = await fetch(`/api/user/video-jobs?t=${Date.now()}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

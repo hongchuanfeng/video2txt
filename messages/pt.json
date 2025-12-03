@@ -45,6 +45,7 @@
       "selectedFile": "Selecionado: {name}",
       "submit": "Gerar Legendas",
       "processing": "Processando via API de legendas...",
+      "processingNotice": "A conversão de vídeo para legendas pode levar algum tempo. Por favor, aguarde com paciência e não atualize a página.",
       "download": "Baixar SRT gerado",
       "resultTitle": "Pré-visualização de Legendas",
       "taskId": "ID da Tarefa: {taskId}",

@@ -57,7 +57,7 @@ export default function HomePage() {
         try {
           const { data: { session } } = await supabase.auth.getSession();
           if (session?.access_token) {
-            const response = await fetch('/api/user/subscription', {
+            const response = await fetch(`/api/user/subscription?t=${Date.now()}`, {
               headers: {
                 Authorization: `Bearer ${session.access_token}`,
               },
@@ -91,7 +91,7 @@ export default function HomePage() {
       if (session?.user) {
         try {
           const token = session.access_token;
-          const response = await fetch('/api/user/subscription', {
+          const response = await fetch(`/api/user/subscription?t=${Date.now()}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -204,6 +204,11 @@ export default function HomePage() {
       return;
     }
 
+    // 用户一点击就进入“处理”状态，按钮立刻变灰禁止再次点击
+    setProcessing(true);
+    setError(null);
+    setTencentResult(null);
+
     // 前端限制上传文件大小，避免浏览器内存和网络占用过大
     if (videoFile.size > MAX_UPLOAD_SIZE_BYTES) {
       const maxMb = Math.round(MAX_UPLOAD_SIZE_BYTES / (1024 * 1024));
@@ -213,6 +218,7 @@ export default function HomePage() {
 
     // Check if user is logged in - if not, redirect to login page
     if (!user) {
+      setProcessing(false);
       router.push(`/${locale}/login`);
       return;
     }
@@ -223,6 +229,7 @@ export default function HomePage() {
         const { data: { session } } = await supabase.auth.getSession();
         if (!session?.access_token) {
           setError('请重新登录');
+          setProcessing(false);
           router.push(`/${locale}/login`);
           return;
         }
@@ -239,17 +246,15 @@ export default function HomePage() {
         const checkData = await checkResponse.json();
         if (!checkData.allowed) {
           setError(checkData.reason || t('error.insufficientCredits'));
+          setProcessing(false);
           return;
         }
       } catch (err: any) {
         setError(t('error.checkFailed'));
+        setProcessing(false);
         return;
       }
     }
-
-    setProcessing(true);
-    setError(null);
-    setTencentResult(null);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -339,10 +344,10 @@ export default function HomePage() {
 
       setTencentResult(data as TencentSubtitleApiResponse);
       
-      // Refresh subscription info
+      // Refresh subscription info（带时间戳避免缓存）
       const { data: { session: refreshSession } } = await supabase.auth.getSession();
       if (refreshSession?.access_token) {
-        const subResponse = await fetch('/api/user/subscription', {
+        const subResponse = await fetch(`/api/user/subscription?t=${Date.now()}`, {
           headers: {
             Authorization: `Bearer ${refreshSession.access_token}`,
           },
@@ -530,6 +535,11 @@ export default function HomePage() {
               </button>
             )}
           </div>
+
+          {/* 提示用户转换需要时间，避免误以为卡住（多语言） */}
+          <p className="mt-3 text-xs text-gray-500">
+            {t('tencentSubtitle.processingNotice')}
+          </p>
 
           {tencentResult ? (
             <div className="mt-6 space-y-3">

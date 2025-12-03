@@ -45,6 +45,7 @@
       "selectedFile": "Seleccionado: {name}",
       "submit": "Generar Subtítulos",
       "processing": "Procesando mediante la API de subtítulos...",
+      "processingNotice": "La conversión de video a subtítulos puede tardar un poco. Por favor, ten paciencia y no actualices la página.",
       "download": "Descargar SRT generado",
       "resultTitle": "Vista Previa de Subtítulos",
       "taskId": "ID de Tarea: {taskId}",
