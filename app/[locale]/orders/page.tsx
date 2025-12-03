@@ -55,6 +55,8 @@ export default function OrdersPage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            // 禁用缓存，实时获取当前订阅和积分
+            cache: 'no-store',
           });
 
           if (subscriptionResponse.ok) {
@@ -95,6 +97,8 @@ export default function OrdersPage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            // 禁用缓存，实时获取“我的订单记录”
+            cache: 'no-store',
           });
 
           if (ordersResponse.ok) {

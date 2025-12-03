@@ -42,6 +42,8 @@ export default function VideoJobsPage() {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            // 禁用缓存，确保“我的转换记录”实时更新
+            cache: 'no-store',
           });
 
           if (response.ok) {
