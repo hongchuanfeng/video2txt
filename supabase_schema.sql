@@ -156,3 +156,19 @@ CREATE INDEX IF NOT EXISTS idx_video_subtitle_jobs_created_at
 
 CREATE INDEX IF NOT EXISTS idx_video_subtitle_jobs_task_id
   ON video_subtitle_jobs(task_id);
+
+
+-- 保活日志表：定期往这里插入一条日志，证明后台任务仍在运行
+CREATE TABLE IF NOT EXISTS keepalive_logs (
+  id BIGSERIAL PRIMARY KEY,                 -- 自增主键
+  log_time TIMESTAMPTZ NOT NULL DEFAULT NOW(), -- 日志时间
+  log TEXT NOT NULL                         -- 日志内容（例如“保活心跳”等）
+);
+
+COMMENT ON TABLE keepalive_logs IS '后台保活/心跳日志表，用于定时任务插入一条记录。';
+COMMENT ON COLUMN keepalive_logs.id IS '自增主键 ID。';
+COMMENT ON COLUMN keepalive_logs.log_time IS '日志记录时间。';
+COMMENT ON COLUMN keepalive_logs.log IS '日志内容描述。';
+
+CREATE INDEX IF NOT EXISTS idx_keepalive_logs_log_time
+  ON keepalive_logs(log_time DESC);

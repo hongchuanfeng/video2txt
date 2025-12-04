@@ -83,6 +83,8 @@ export async function getUserSubscription(userId: string): Promise<UserSubscript
     .eq('user_id', userId)
     .single();
 
+    
+
   if (error) {
     console.error('getUserSubscription - Query error:', {
       code: error.code,

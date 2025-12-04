@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "keepalive": "node scripts/keepalive-logger.js"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.10",
     "@ffmpeg/util": "^0.12.1",
     "@supabase/supabase-js": "^2.48.0",
     "axios": "^1.13.2",
+    "dotenv": "^16.4.5",
     "cos-nodejs-sdk-v5": "^2.15.4",
     "next": "^14.0.4",
     "next-intl": "^3.5.0",
