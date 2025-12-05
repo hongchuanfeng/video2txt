@@ -71,10 +71,10 @@ export default function Footer() {
               <li>
                 <span className="font-medium">{t('email')}:</span>{' '}
                 <a
-                  href="mailto:video2txt@zorezoro.com"
+                  href="mailto:video2txt@chdaoai.com"
                   className="underline hover:text-primary-200"
                 >
-                  video2txt@zorezoro.com
+                  video2txt@chdaoai.com
                 </a>
               </li>
               <li>

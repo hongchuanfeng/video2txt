@@ -354,6 +354,7 @@
       "subject": "主题",
       "message": "留言",
       "send": "发送消息",
+      "sending": "发送中...",
       "success": "消息发送成功！我们会尽快回复您。",
       "error": "发送消息时出错。请重试。"
     }
@@ -438,7 +439,7 @@
           "item4": "反对：反对处理您的数据",
           "item5": "可携带性：请求转移您的数据"
         },
-        "contact": "要行使这些权利，请通过 video2txt@zorezoro.com 联系我们"
+        "contact": "要行使这些权利，请通过 video2txt@chdaoai.com 联系我们"
       },
       "children": {
         "title": "儿童隐私",
@@ -454,7 +455,7 @@
       },
       "contact": {
         "title": "关于隐私的联系我们",
-        "content": "如果您对本隐私政策或我们的数据做法有任何问题、疑虑或请求，请通过 video2txt@zorezoro.com 联系我们。我们将在30天内回复您的询问。"
+        "content": "如果您对本隐私政策或我们的数据做法有任何问题、疑虑或请求，请通过 video2txt@chdaoai.com 联系我们。我们将在30天内回复您的询问。"
       }
     },
     "terms": {
@@ -532,7 +533,7 @@
       },
       "contact": {
         "title": "关于条款的问题",
-        "content": "如果您对这些服务条款有任何问题，请通过 video2txt@zorezoro.com 联系我们。"
+        "content": "如果您对这些服务条款有任何问题，请通过 video2txt@chdaoai.com 联系我们。"
       }
     },
     "refund": {
@@ -557,7 +558,7 @@
           "item3": "无法访问已生成的文件或数据",
           "item4": "其他影响正常使用的故障"
         },
-        "contact": "我们将根据合同约定提供补偿、重试或部分退款。请写信至 video2txt@zorezoro.com 以便记录和处理。"
+        "contact": "我们将根据合同约定提供补偿、重试或部分退款。请写信至 video2txt@chdaoai.com 以便记录和处理。"
       },
       "futureChanges": {
         "title": "套餐变更",
@@ -577,11 +578,11 @@
       },
       "disputes": {
         "title": "争议处理",
-        "content": "若对账单或服务结果存在争议，请在收到账单后30天内通过 video2txt@zorezoro.com 与我们沟通，我们将在合理时间内给出答复。"
+        "content": "若对账单或服务结果存在争议，请在收到账单后30天内通过 video2txt@chdaoai.com 与我们沟通，我们将在合理时间内给出答复。"
       },
       "contact": {
         "title": "联系我们",
-        "content": "有关计费或退款政策的任何问题，请发送邮件至 video2txt@zorezoro.com。"
+        "content": "有关计费或退款政策的任何问题，请发送邮件至 video2txt@chdaoai.com。"
       }
     },
     "disclaimer": {
@@ -676,7 +677,7 @@
       },
       "contact": {
         "title": "关于本免责声明的问题",
-        "content": "如果您对本免责声明有任何问题，请通过 video2txt@zorezoro.com 联系我们。"
+        "content": "如果您对本免责声明有任何问题，请通过 video2txt@chdaoai.com 联系我们。"
       }
     },
     "copyright": {
@@ -701,7 +702,7 @@
       },
       "violations": {
         "title": "版权侵权",
-        "content": "如果您认为我们网站上的任何内容侵犯了您的版权，请立即通过 video2txt@zorezoro.com 联系我们，并提供以下信息：受版权保护作品的描述、侵权材料的位置、您的联系信息，以及善意相信该使用未经授权的声明。"
+        "content": "如果您认为我们网站上的任何内容侵犯了您的版权，请立即通过 video2txt@chdaoai.com 联系我们，并提供以下信息：受版权保护作品的描述、侵权材料的位置、您的联系信息，以及善意相信该使用未经授权的声明。"
       },
       "enforcement": {
         "title": "执法",
@@ -713,7 +714,7 @@
       },
       "contact": {
         "title": "版权咨询",
-        "content": "有关版权的任何问题或使用我们材料的许可请求，请通过 video2txt@zorezoro.com 联系我们。"
+        "content": "有关版权的任何问题或使用我们材料的许可请求，请通过 video2txt@chdaoai.com 联系我们。"
       }
     },
     "legal": {
@@ -754,7 +755,7 @@
       },
       "contact": {
         "title": "法律咨询",
-        "content": "有关本声明的任何法律咨询或疑虑，请通过 video2txt@zorezoro.com 联系我们。我们将在合理的时间内回复所有法律咨询。"
+        "content": "有关本声明的任何法律咨询或疑虑，请通过 video2txt@chdaoai.com 联系我们。我们将在合理的时间内回复所有法律咨询。"
       }
     },
     "ip": {
@@ -795,11 +796,11 @@
       },
       "licensing": {
         "title": "许可和权限",
-        "content": "如果您希望使用我们的任何知识产权，您必须获得我们的事先书面同意。许可请求应提交至 video2txt@zorezoro.com，并提供有关预期用途、持续时间和请求许可范围的详细信息。我们保留自行决定授予或拒绝此类请求的权利。"
+        "content": "如果您希望使用我们的任何知识产权，您必须获得我们的事先书面同意。许可请求应提交至 video2txt@chdaoai.com，并提供有关预期用途、持续时间和请求许可范围的详细信息。我们保留自行决定授予或拒绝此类请求的权利。"
       },
       "thirdParty": {
         "title": "第三方知识产权",
-        "content": "我们尊重他人的知识产权。如果您认为我们网站上的任何内容侵犯了您的知识产权，请立即通过 video2txt@zorezoro.com 联系我们，并提供有关涉嫌侵权的详细信息。我们将调查所有索赔并采取适当行动。"
+        "content": "我们尊重他人的知识产权。如果您认为我们网站上的任何内容侵犯了您的知识产权，请立即通过 video2txt@chdaoai.com 联系我们，并提供有关涉嫌侵权的详细信息。我们将调查所有索赔并采取适当行动。"
       },
       "updates": {
         "title": "本声明的更新",
@@ -807,7 +808,7 @@
       },
       "contact": {
         "title": "知识产权咨询",
-        "content": "有关知识产权、许可请求或侵权索赔的问题，请通过 video2txt@zorezoro.com 联系我们。我们将及时回复所有咨询。"
+        "content": "有关知识产权、许可请求或侵权索赔的问题，请通过 video2txt@chdaoai.com 联系我们。我们将及时回复所有咨询。"
       }
     }
   },

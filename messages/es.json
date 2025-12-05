@@ -354,6 +354,7 @@
       "subject": "Asunto",
       "message": "Mensaje",
       "send": "Enviar mensaje",
+      "sending": "Enviando...",
       "success": "¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.",
       "error": "Hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo."
     }
@@ -438,7 +439,7 @@
           "item4": "Oposición: Oponerte al procesamiento de tus datos",
           "item5": "Portabilidad: Solicitar la transferencia de tus datos"
         },
-        "contact": "Para ejercer estos derechos, por favor contáctanos en video2txt@zorezoro.com"
+        "contact": "Para ejercer estos derechos, por favor contáctanos en video2txt@chdaoai.com"
       },
       "children": {
         "title": "Privacidad de los niños",
@@ -454,7 +455,7 @@
       },
       "contact": {
         "title": "Contáctanos sobre privacidad",
-        "content": "Si tienes alguna pregunta, inquietud o solicitud con respecto a esta Política de Privacidad o nuestras prácticas de datos, por favor contáctanos en video2txt@zorezoro.com. Responderemos a tu consulta en un plazo de 30 días."
+        "content": "Si tienes alguna pregunta, inquietud o solicitud con respecto a esta Política de Privacidad o nuestras prácticas de datos, por favor contáctanos en video2txt@chdaoai.com. Responderemos a tu consulta en un plazo de 30 días."
       }
     },
     "terms": {
@@ -532,7 +533,7 @@
       },
       "contact": {
         "title": "Preguntas sobre los términos",
-        "content": "Si tienes alguna pregunta sobre estos Términos de Servicio, por favor contáctanos en video2txt@zorezoro.com."
+        "content": "Si tienes alguna pregunta sobre estos Términos de Servicio, por favor contáctanos en video2txt@chdaoai.com."
       }
     },
     "refund": {
@@ -557,7 +558,7 @@
           "item3": "Imposibilidad de acceder a archivos o datos generados",
           "item4": "Otras fallas que impiden el uso normal"
         },
-        "contact": "Contacta a video2txt@zorezoro.com con registros o ID de tarea. Podemos ofrecer reprocesamiento, créditos o reembolsos parciales según tu acuerdo."
+        "contact": "Contacta a video2txt@chdaoai.com con registros o ID de tarea. Podemos ofrecer reprocesamiento, créditos o reembolsos parciales según tu acuerdo."
       },
       "futureChanges": {
         "title": "Cambios de plan",
@@ -577,11 +578,11 @@
       },
       "disputes": {
         "title": "Resolución de disputas",
-        "content": "Si disputas una factura o el resultado del servicio, notifícanos en un plazo de 30 días a video2txt@zorezoro.com. Responderemos rápidamente y trabajaremos para lograr una resolución justa."
+        "content": "Si disputas una factura o el resultado del servicio, notifícanos en un plazo de 30 días a video2txt@chdaoai.com. Responderemos rápidamente y trabajaremos para lograr una resolución justa."
       },
       "contact": {
         "title": "Contáctanos",
-        "content": "Para preguntas sobre facturación o reembolsos, envía un correo electrónico a video2txt@zorezoro.com."
+        "content": "Para preguntas sobre facturación o reembolsos, envía un correo electrónico a video2txt@chdaoai.com."
       }
     },
     "disclaimer": {
@@ -676,7 +677,7 @@
       },
       "contact": {
         "title": "Preguntas sobre este Descargo de Responsabilidad",
-        "content": "Si tienes alguna pregunta sobre este Descargo de Responsabilidad, por favor contáctanos en video2txt@zorezoro.com."
+        "content": "Si tienes alguna pregunta sobre este Descargo de Responsabilidad, por favor contáctanos en video2txt@chdaoai.com."
       }
     },
     "copyright": {
@@ -701,7 +702,7 @@
       },
       "violations": {
         "title": "Violaciones de derechos de autor",
-        "content": "Si crees que algún contenido de nuestro sitio web infringe tus derechos de autor, por favor contáctanos inmediatamente en video2txt@zorezoro.com con la siguiente información: una descripción de la obra protegida por derechos de autor, la ubicación del material infractor, tu información de contacto y una declaración de buena fe de que el uso no está autorizado."
+        "content": "Si crees que algún contenido de nuestro sitio web infringe tus derechos de autor, por favor contáctanos inmediatamente en video2txt@chdaoai.com con la siguiente información: una descripción de la obra protegida por derechos de autor, la ubicación del material infractor, tu información de contacto y una declaración de buena fe de que el uso no está autorizado."
       },
       "enforcement": {
         "title": "Aplicación",
@@ -713,7 +714,7 @@
       },
       "contact": {
         "title": "Consultas sobre derechos de autor",
-        "content": "Para cualquier pregunta sobre derechos de autor o solicitudes de permiso para usar nuestros materiales, por favor contáctanos en video2txt@zorezoro.com."
+        "content": "Para cualquier pregunta sobre derechos de autor o solicitudes de permiso para usar nuestros materiales, por favor contáctanos en video2txt@chdaoai.com."
       }
     },
     "legal": {
@@ -754,7 +755,7 @@
       },
       "contact": {
         "title": "Consultas legales",
-        "content": "Para cualquier consulta o inquietud legal con respecto a este aviso, por favor contáctanos en video2txt@zorezoro.com. Responderemos a todas las consultas legales en un plazo razonable."
+        "content": "Para cualquier consulta o inquietud legal con respecto a este aviso, por favor contáctanos en video2txt@chdaoai.com. Responderemos a todas las consultas legales en un plazo razonable."
       }
     },
     "ip": {
@@ -795,11 +796,11 @@
       },
       "licensing": {
         "title": "Licencias y permisos",
-        "content": "Si deseas utilizar cualquiera de nuestra propiedad intelectual, debes obtener nuestro consentimiento previo por escrito. Las solicitudes de licencia deben enviarse a video2txt@zorezoro.com con información detallada sobre el uso previsto, la duración y el alcance de la licencia solicitada. Nos reservamos el derecho de otorgar o denegar dichas solicitudes a nuestra entera discreción."
+        "content": "Si deseas utilizar cualquiera de nuestra propiedad intelectual, debes obtener nuestro consentimiento previo por escrito. Las solicitudes de licencia deben enviarse a video2txt@chdaoai.com con información detallada sobre el uso previsto, la duración y el alcance de la licencia solicitada. Nos reservamos el derecho de otorgar o denegar dichas solicitudes a nuestra entera discreción."
       },
       "thirdParty": {
         "title": "Propiedad intelectual de terceros",
-        "content": "Respetamos los derechos de propiedad intelectual de otros. Si crees que algún contenido de nuestro sitio web infringe tus derechos de propiedad intelectual, por favor contáctanos inmediatamente en video2txt@zorezoro.com con información detallada sobre la supuesta infracción. Investigaremos todas las reclamaciones y tomaremos las medidas adecuadas."
+        "content": "Respetamos los derechos de propiedad intelectual de otros. Si crees que algún contenido de nuestro sitio web infringe tus derechos de propiedad intelectual, por favor contáctanos inmediatamente en video2txt@chdaoai.com con información detallada sobre la supuesta infracción. Investigaremos todas las reclamaciones y tomaremos las medidas adecuadas."
       },
       "updates": {
         "title": "Actualizaciones de este aviso",
@@ -807,7 +808,7 @@
       },
       "contact": {
         "title": "Consultas sobre propiedad intelectual",
-        "content": "Para preguntas sobre derechos de propiedad intelectual, solicitudes de licencia o reclamaciones de infracción, por favor contáctanos en video2txt@zorezoro.com. Responderemos a todas las consultas de manera oportuna."
+        "content": "Para preguntas sobre derechos de propiedad intelectual, solicitudes de licencia o reclamaciones de infracción, por favor contáctanos en video2txt@chdaoai.com. Responderemos a todas las consultas de manera oportuna."
       }
     }
   },

@@ -172,3 +172,37 @@ COMMENT ON COLUMN keepalive_logs.log IS '日志内容描述。';
 
 CREATE INDEX IF NOT EXISTS idx_keepalive_logs_log_time
   ON keepalive_logs(log_time DESC);
+
+
+-- 联系我们留言表：记录用户通过"联系我们"页面提交的留言信息
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),      -- 留言主键
+  name TEXT NOT NULL,                                -- 留言人姓名
+  email TEXT NOT NULL,                               -- 留言人邮箱
+  subject TEXT NOT NULL,                             -- 留言主题
+  message TEXT NOT NULL,                             -- 留言内容
+  user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL, -- 用户 ID（如果已登录，关联 auth.users 表；未登录则为 NULL）
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()      -- 创建时间（留言提交时间）
+);
+
+-- 字段说明（COMMENT）
+COMMENT ON TABLE contact_messages IS '记录用户通过"联系我们"页面提交的留言信息。';
+
+COMMENT ON COLUMN contact_messages.id        IS '留言主键 ID（UUID）。';
+COMMENT ON COLUMN contact_messages.name      IS '留言人姓名。';
+COMMENT ON COLUMN contact_messages.email     IS '留言人邮箱地址。';
+COMMENT ON COLUMN contact_messages.subject   IS '留言主题。';
+COMMENT ON COLUMN contact_messages.message   IS '留言内容详情。';
+COMMENT ON COLUMN contact_messages.user_id    IS '用户 ID（如果用户已登录，关联 auth.users 表；未登录则为 NULL）。';
+COMMENT ON COLUMN contact_messages.created_at IS '记录创建时间（留言提交时间）。';
+
+-- 常用索引
+CREATE INDEX IF NOT EXISTS idx_contact_messages_email
+  ON contact_messages(email);
+
+CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at
+  ON contact_messages(created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_contact_messages_user_id
+  ON contact_messages(user_id)
+  WHERE user_id IS NOT NULL;

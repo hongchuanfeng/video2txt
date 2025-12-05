@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,17 +15,62 @@ export default function ContactPage() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, you would send this to a backend
-    setSubmitted(true);
-    setError(false);
-    setTimeout(() => {
-      setSubmitted(false);
+    setLoading(true);
+    setSubmitted(false);
+    setError(null);
+
+    try {
+      // 获取当前登录用户的 token（如果已登录）
+      let authHeader: HeadersInit = {};
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          authHeader = {
+            Authorization: `Bearer ${session.access_token}`,
+          };
+        }
+      } catch (authError) {
+        // 如果获取 token 失败，继续处理（允许未登录用户提交留言）
+        console.log('Failed to get auth token, continuing as anonymous:', authError);
+      }
+
+      // 调用 API 保存留言
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...authHeader,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || '提交留言失败，请稍后重试');
+      }
+
+      // 提交成功
+      setSubmitted(true);
+      setError(null);
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+
+      // 3秒后清除成功提示
+      setTimeout(() => {
+        setSubmitted(false);
+      }, 3000);
+    } catch (err: any) {
+      console.error('Error submitting contact message:', err);
+      setError(err?.message || t('form.error'));
+      setSubmitted(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,10 +92,10 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-2xl font-semibold mb-2">{t('email')}</h2>
                 <a
-                  href="mailto:video2txt@zorezoro.com"
+                  href="mailto:video2txt@chdaoai.com"
                   className="text-primary-600 hover:text-primary-700 text-lg"
                 >
-                  video2txt@zorezoro.com
+                  video2txt@chdaoai.com
                 </a>
               </div>
             </div>
@@ -155,9 +201,10 @@ export default function ContactPage() {
             </div>
             <button
               type="submit"
-              className="w-full bg-primary-600 text-white px-6 py-4 rounded-lg font-medium hover:bg-primary-700 transition-colors text-lg"
+              disabled={loading}
+              className="w-full bg-primary-600 text-white px-6 py-4 rounded-lg font-medium hover:bg-primary-700 transition-colors text-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {t('form.send')}
+              {loading ? t('form.sending') || '发送中...' : t('form.send')}
             </button>
             {submitted && (
               <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
@@ -166,7 +213,7 @@ export default function ContactPage() {
             )}
             {error && (
               <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-                {t('form.error')}
+                {error}
               </div>
             )}
           </form>
